@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-set -e # exit on failure
-
-# cd into script location
-cd "$(dirname "$0")"
+cd "$(dirname "$0")" # script location
 uv sync
-uv run main.py
+uv run python main.py

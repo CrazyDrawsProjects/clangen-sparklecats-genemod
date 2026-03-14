@@ -95,13 +95,6 @@ class Breed_generator:
             else:
                 genoclass.ticked[i] = "ta"
 
-        genoclass.pangere = choice([None, None,
-                                    "pangere small 1", "pangere small 1", "pangere small 1",
-                                    "pangere small 2", "pangere small 2", "pangere small 2",
-                                    "pangere medium 1", "pangere medium 2"])
-
-        genoclass.rednose = random() < 0.25
-
         if genoclass.odds["breakthrough"] > 0 and randint(1, genoclass.odds["breakthrough"]) == 1:
             genoclass.breakthrough = True
 
@@ -120,8 +113,6 @@ class Breed_generator:
         genoclass.tickgenes = ''
         genoclass.bengal = ''
         genoclass.sokoke = ''
-        genoclass.unders_ruf = ''
-        genoclass.unders_rufsum = 0
         
         for i in range(0, 8):
             genoclass.wideband += choice(genoclass.odds["wideband_kittypet"])
@@ -130,10 +121,6 @@ class Breed_generator:
         for i in range(0, 4):
             genoclass.rufousing += choice(genoclass.odds["rufousing_kittypet"])
             genoclass.rufsum += int(genoclass.rufousing[i])
-
-        for i in range(0, 4):
-            genoclass.unders_ruf += choice(genoclass.odds["rufousing"])
-            genoclass.unders_rufsum += int(genoclass.unders_ruf[i])
 
         for i in range(0, 4):
             genoclass.spotted += choice(genoclass.odds["spotted_kittypet"])
@@ -223,7 +210,7 @@ class Breed_generator:
 
         # MACKEREL
 
-        genoclass.mack = ["mc", "mc"]
+        genoclass.mack = ["Mc", "Mc"]
 
         # TICKED
 
@@ -232,7 +219,6 @@ class Breed_generator:
         genes = ["2", "2", "1", "1", "1", "1", "1", "1", "0", "0"]
 
         genoclass.rufousing = ''
-        genoclass.unders_ruf = ''
         genoclass.tickgenes = ''
         genoclass.bengal = ''
         genoclass.sokoke = ''
@@ -246,11 +232,14 @@ class Breed_generator:
 
         for i in range(0, 4):
             genoclass.rufousing += '2'
-            genoclass.unders_ruf += '2'
+
+        for i in range(0, 4):
             genoclass.tickgenes += '2'
 
         for i in range(0, 4):
             genoclass.bengal += '0'
+
+        for i in range(0, 4):
             genoclass.sokoke += '0'
 
         genoclass.body_value = randint(genoclass.body_indexes[3]+1, genoclass.body_indexes[4])
@@ -564,10 +553,6 @@ class Breed_generator:
     @staticmethod
     def Bengal(genoclass, special):
         genoclass = Breed_generator.AllColours(genoclass, special)
-
-        if genoclass.odds["dense_blotched"] > 0 and randint(1, genoclass.odds["dense_blotched"]) == 1:
-            genoclass.sheeted = True
-
         # FUR LENGTH
         
         a = randint(1, 10)
@@ -964,6 +949,37 @@ class Breed_generator:
         return genoclass
     
     @staticmethod
+    def Clippercat(genoclass, special):
+
+        genoclass = Breed_generator.AllColours(genoclass, special)
+
+        # ALBINO
+
+        for i in range(2):
+            d = randint(1, 5)
+
+            if d == 1:
+                genoclass.pointgene[i] = "cs"
+            else:
+                genoclass.pointgene[i] = "C"
+
+        # munch + poly + altai
+
+        genoclass.poly = ["Pd", "Pd"]
+
+        genes = ["2", "2", "1", "1", "1", "1", "1", "1", "0", "0"]
+        
+        while genoclass.wbsum > 11 or genoclass.wideband == "":  
+            genoclass.wideband = ''
+            genoclass.wbsum = 0    
+            for i in range(0, 8):
+                genoclass.wideband += choice(genes)
+                genoclass.wbsum += int(genoclass.wideband[i])
+        
+        genoclass.breeds["Clippercat"] = 100
+        return genoclass
+    
+    @staticmethod
     def Cornish(genoclass, special):
         genoclass = Breed_generator.AllColours(genoclass, special)
         # FUR LENGTH
@@ -1125,9 +1141,6 @@ class Breed_generator:
         genoclass.breeds[choice(["Egyptian Mau", "Savannah"])] = 100
 
         if genoclass.breeds.get('Savannah', False):
-            genoclass.blacknose = random() < 0.25
-            genoclass.breakthrough = True
-            genoclass.ticked[0] = "Ta" if random() < 0.065 else "ta"
             genoclass.height_value = randint(genoclass.height_indexes[4]+1, genoclass.height_indexes[9])
 
         return genoclass
@@ -1164,8 +1177,6 @@ class Breed_generator:
             genoclass.karp = ["K", "K"]
         elif random() < 0.80:
             genoclass.karp = ["K", 'k']
-
-        genoclass.longtype = "long"
         
         genoclass.breeds["German Longhair"] = 100
         return genoclass
@@ -1519,8 +1530,7 @@ class Breed_generator:
         for i in range(0, 4):
             genoclass.sokoke += '0'
             genoclass.soksum += int(genoclass.sokoke[i])
-
-        genoclass.longtype = "long"
+        
         genoclass.breeds["Lin-Qing Lion cat"] = 100
         return genoclass
     
@@ -1643,7 +1653,7 @@ class Breed_generator:
         elif random() < 0.0625:
             genoclass.poly[0] = "Pd"
 
-        genoclass.height_value = randint(genoclass.height_indexes[4]+1, genoclass.height_indexes[9])
+        genoclass.height_value = randint(genoclass.height_indexes[3]+1, genoclass.height_indexes[9])
         
         genoclass.breeds["Maine Coon"] = 100
         genoclass.longtype = 'long'
@@ -1727,9 +1737,6 @@ class Breed_generator:
 
         for i in range(2):
             genoclass.pointgene[i] = "C"
-
-        if randint(1, 4) == 1:
-            genoclass.poly = ["Pd", "pd"]
         
         genoclass.breeds["New Zealand"] = 100
         return genoclass
@@ -1765,8 +1772,7 @@ class Breed_generator:
                 genoclass.ext[i] = "ea"
 
         genoclass.height_value = randint(genoclass.height_indexes[3]+1, genoclass.height_indexes[6])
-
-        genoclass.longtype = "long"
+        
         genoclass.breeds["Norwegian Forest cat"] = 100
         return genoclass
     
@@ -1899,7 +1905,7 @@ class Breed_generator:
             if randint(1, 50) == 1:
                 genoclass.dilutemd[i] = "Dm"
 
-        genoclass.body_value = randint(0, genoclass.body_indexes[1]-1)
+        genoclass.body_value = randint(genoclass.body_indexes[0], genoclass.body_indexes[1])
         
         genoclass.breeds["Persian/Exotic"] = 100
         return genoclass
@@ -1985,11 +1991,12 @@ class Breed_generator:
         for i in range(0, 4):
             genoclass.tickgenes += '0'
 
+
         for i in range(0, 4):
             genoclass.bengal += '0'
 
         for i in range(0, 4):
-            genoclass.sokoke += '2'
+            genoclass.sokoke += '0'
         
         genoclass.breeds["Pixie-Bob"] = 100
         return genoclass
@@ -2038,9 +2045,8 @@ class Breed_generator:
 
         # ALBINO
 
-        if not random() < 0.2:
-            for i in range(2):
-                genoclass.pointgene[i] = "cs"
+        for i in range(2):
+            genoclass.pointgene[i] = "cs"
 
         for i in range(2):
             if randint(1, 50) == 1:
@@ -2121,7 +2127,7 @@ class Breed_generator:
             genoclass.sokoke += '0'
 
         genoclass.body_value = randint(genoclass.body_indexes[2]+1, genoclass.body_indexes[4])
-        genoclass.saturation = randint(0, 2)
+        
         genoclass.breeds["Russian"] = 100
         return genoclass
     
@@ -2271,7 +2277,6 @@ class Breed_generator:
             genoclass.sokoke += '0'
 
         genoclass.body_value = randint(genoclass.body_indexes[3]+1, genoclass.body_indexes[4])
-        genoclass.height_value = randint(genoclass.height_indexes[1]+1, genoclass.height_indexes[3])
         
         genoclass.breeds["Singapura"] = 100
         return genoclass
@@ -2548,7 +2553,12 @@ class Breed_generator:
         # ALBINO
 
         for i in range(2):
-            genoclass.pointgene[i] = "C"
+            if randint(1, 25):
+                genoclass.pointgene[i] = "cb"
+            elif randint(1, 15):
+                genoclass.pointgene[i] = "cs"
+            else:
+                genoclass.pointgene[i] = "C"
 
         # SILVER
 
@@ -3042,581 +3052,604 @@ class Breed_generator:
 
 class Breed_checker:
     @staticmethod
-    def Cheetoh(phenotype):
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N" or phenotype.length != "shorthaired" or 'O' in phenotype.sexgene:
+    def Cheetoh(genotype, phenotype):
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N" or phenotype.length != "shorthaired" or 'O' in genotype.sexgene:
             return False
-        if phenotype.white[0] != "w" or phenotype.ticked[0] != "ta" or phenotype.furtype != [""] or phenotype.pinkdilute[0] == "dp":
+        if genotype.white[0] != "w" or genotype.ticked[0] != "ta" or phenotype.furtype != [""] or genotype.pinkdilute[0] == "dp":
             return False
-        if phenotype.karp[0] != "k" or phenotype.bleach[0] != "Lb" or phenotype.ghosting[0] != "gh" or phenotype.satin[0] == "st":
+        if genotype.karp[0] != "k" or genotype.bleach[0] != "Lb" or genotype.ghosting[0] != "gh" or genotype.satin[0] == "st":
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
-        if phenotype.dilute[0] == "d" and (phenotype.eumelanin[0] != "B" or phenotype.dilutemd[0] != "dm"):
+        if genotype.dilute[0] == "d" and (genotype.eumelanin[0] != "B" or genotype.dilutemd[0] != "dm"):
             return False
-        if phenotype.pointgene[0] != "C" and (phenotype.eumelanin[0] != "B" or phenotype.dilute[0] == "d" or phenotype.agouti[0] != "A"):
+        if genotype.pointgene[0] != "C" and (genotype.eumelanin[0] != "B" or genotype.dilute[0] == "d" or genotype.agouti[0] != "A"):
             return False
-        if phenotype.silver[0] == "I" and phenotype.agouti[0] == "a" and (phenotype.eumelanin == "bl" or phenotype.dilute[0] == "d"):
+        if genotype.silver[0] == "I" and genotype.agouti[0] == "a" and (genotype.eumelanin == "bl" or genotype.dilute[0] == "d"):
             return False
-        if phenotype.mack[0] == "mc" and (phenotype.eumelanin[0] != "B" or phenotype.dilute[0] == "d"):
+        if genotype.mack[0] == "mc" and (genotype.eumelanin[0] != "B" or genotype.dilute[0] == "d"):
             return False
-        if phenotype.eumelanin[0] != "B" and phenotype.silver[0] != "I":
+        if genotype.eumelanin[0] != "B" and genotype.silver[0] != "I":
             return False
-        if phenotype.wbsum > 11 or phenotype.soksum > 3:
+        if genotype.wbsum > 11 or genotype.soksum > 3:
             return False
         return True
     @staticmethod
-    def Serengeti(phenotype):
+    def Serengeti(genotype, phenotype):
         
         if phenotype.length != "shorthaired" or (phenotype.furtype != [""] and phenotype.furtype != [" shiny", " fur"]):
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] != "dm" or phenotype.pinkdilute[0] == "dp":
+        if genotype.dilutemd[0] != "dm" or genotype.pinkdilute[0] == "dp":
             return False
         
-        if 'O' in phenotype.sexgene:
+        if 'O' in genotype.sexgene:
             return False
-        if phenotype.white[0] != "w" or phenotype.ticked[0] != "ta":
+        if genotype.white[0] != "w" or genotype.ticked[0] != "ta":
             return False
-        if phenotype.dilute[0] == "d" or phenotype.pointgene[0] != "C" or phenotype.eumelanin[0] != "B" or phenotype.mack[0] == "mc":
+        if genotype.dilute[0] == "d" or genotype.pointgene[0] != "C" or genotype.eumelanin[0] != "B" or genotype.mack[0] == "mc":
             return False
-        if phenotype.wbsum > 11 or phenotype.soksum > 3 or phenotype.spotsum < 6:
+        if genotype.wbsum > 11 or genotype.soksum > 3 or genotype.spotsum < 6:
             return False
         return True
 
     @staticmethod
-    def Aby(phenotype):
+    def Aby(genotype, phenotype):
         if phenotype.length == "hairless" or phenotype.furtype != [""]:
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] != "dm" or phenotype.pinkdilute[0] == "dp":
+        if genotype.dilutemd[0] != "dm" or genotype.pinkdilute[0] == "dp":
             return False
 
-        if phenotype.white[0] != "w" or phenotype.pointgene[0] != "C" or phenotype.agouti[0] != "A":
+        if genotype.white[0] != "w" or genotype.pointgene[0] != "C" or genotype.agouti[0] != "A":
             return False
-        if phenotype.ticked[0] == "ta" or phenotype.ticksum < 6:
+        if genotype.ticked[0] == "ta" or genotype.ticksum < 6:
             return False
     
-        if phenotype.furLength[0] == "l":
+        if genotype.furLength[0] == "l":
             return "Somali"
         return "Abyssinian"
 
     @staticmethod
-    def AmBob(phenotype):
+    def AmBob(genotype, phenotype):
         if phenotype.length == "hairless" or phenotype.furtype != [""]:
             return False
-        if phenotype.eartype != "" or phenotype.manx[0] != "Ab" or phenotype.pawtype != "":
+        if phenotype.eartype != "" or genotype.manx[0] != "Ab" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] != "dm" or phenotype.pinkdilute[0] == "dp":
+        if genotype.dilutemd[0] != "dm" or genotype.pinkdilute[0] == "dp":
             return False
-        if phenotype.agouti[0] == "A" and (phenotype.bengsum > 3 or phenotype.soksum > 3):
+        if genotype.agouti[0] == "A" and (genotype.bengsum > 3 or genotype.soksum > 3):
             return False
-        if phenotype.agouti[0] == "Apb":
+        if genotype.agouti[0] == "Apb":
             return False
-        if (('cm' in phenotype.pointgene or 'c' in phenotype.pointgene) and phenotype.pointgene[0] != "C"):
+        if (('cm' in genotype.pointgene or 'c' in genotype.pointgene) and genotype.pointgene[0] != "C"):
             return False
     
         return "American Bobtail"
 
     @staticmethod
-    def AmCurl(phenotype):
+    def AmCurl(genotype, phenotype):
         if phenotype.length == "hairless" or phenotype.furtype != [""]:
             return False
-        if phenotype.curl[0] != "Cu" or phenotype.fold[0] == "Fd" or phenotype.tailtype != "" or phenotype.pawtype != "":
+        if genotype.curl[0] != "Cu" or genotype.fold[0] == "Fd" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] != "dm" or phenotype.pinkdilute[0] == "dp":
+        if genotype.dilutemd[0] != "dm" or genotype.pinkdilute[0] == "dp":
             return False
-        if phenotype.agouti[0] == "A" and (phenotype.bengsum > 3 or phenotype.soksum > 3):
+        if genotype.agouti[0] == "A" and (genotype.bengsum > 3 or genotype.soksum > 3):
             return False
-        if phenotype.agouti[0] == "Apb":
+        if genotype.agouti[0] == "Apb":
             return False
-        if (('cm' in phenotype.pointgene or 'c' in phenotype.pointgene) and phenotype.pointgene[0] != "C"):
+        if (('cm' in genotype.pointgene or 'c' in genotype.pointgene) and genotype.pointgene[0] != "C"):
             return False
         
         return "American Curl"
 
     @staticmethod
-    def AmSH(phenotype):
+    def AmSH(genotype, phenotype):
         if phenotype.length == "hairless" or (phenotype.furtype != [""] and phenotype.furtype != ["wiry", " fur"]):
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] != "dm" or phenotype.pinkdilute[0] == "dp":
+        if genotype.dilutemd[0] != "dm" or genotype.pinkdilute[0] == "dp":
             return False
-        if phenotype.agouti[0] == "A" and (phenotype.bengsum > 3 or phenotype.soksum > 3):
+        if genotype.agouti[0] == "A" and (genotype.bengsum > 3 or genotype.soksum > 3):
             return False
-        if phenotype.agouti[0] == "Apb":
+        if genotype.agouti[0] == "Apb":
             return False
 
-        if phenotype.pointgene[0] != "C" or phenotype.furLength[0] != "L":
+        if genotype.pointgene[0] != "C" or genotype.furLength[0] != "L":
             return False
     
-        if phenotype.wirehair[0] == "Wh":
+        if genotype.wirehair[0] == "Wh":
             return "American Wirehair"
         return "American Shorthair"
 
     @staticmethod
-    def AmBurm(phenotype):
+    def AmBurm(genotype, phenotype):
         if phenotype.length == "hairless" or phenotype.furtype != [""]:
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] != "dm" or phenotype.pinkdilute[0] == "dp":
-            return False
-
-        if phenotype.white[0] != "w" or phenotype.agouti[0] != "a" or phenotype.eumelanin[0] == "bl":
-            return False
-        if phenotype.silver[0] == "I" or phenotype.furLength[0] == "l" or 'O' in phenotype.sexgene:
+        if genotype.dilutemd[0] != "dm" or genotype.pinkdilute[0] == "dp":
             return False
 
-        if phenotype.pointgene != ["cb", "cb"]:
-            if phenotype.pointgene[0] == "C" and phenotype.dilute[0] == "D" and phenotype.eumelanin[0] == "B":
+        if genotype.white[0] != "w" or genotype.agouti[0] != "a" or genotype.eumelanin[0] == "bl":
+            return False
+        if genotype.silver[0] == "I" or genotype.furLength[0] == "l" or 'O' in genotype.sexgene:
+            return False
+
+        if genotype.pointgene != ["cb", "cb"]:
+            if genotype.pointgene[0] == "C" and genotype.dilute[0] == "D" and genotype.eumelanin[0] == "B":
                 return "American Bombay"
             return False
     
         return "American Burmese"
 
     @staticmethod
-    def Aphrodite(phenotype):
+    def Aphrodite(genotype, phenotype):
         if phenotype.length == "hairless" or phenotype.furtype != [""]:
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] != "dm" or phenotype.pinkdilute[0] == "dp":
+        if genotype.dilutemd[0] != "dm" or genotype.pinkdilute[0] == "dp":
             return False
 
-        if phenotype.pointgene[0] != "C":
+        if genotype.pointgene[0] != "C":
             return False
-        if phenotype.agouti[0] == "A" and (phenotype.bengsum > 3 or phenotype.soksum > 3):
+        if genotype.agouti[0] == "A" and (genotype.bengsum > 3 or genotype.soksum > 3):
             return False
-        if phenotype.agouti[0] == "Apb":
+        if genotype.agouti[0] == "Apb":
             return False
     
         return "Aphrodite's Giant"
 
     @staticmethod
-    def Arab(phenotype):
-        if phenotype.length == "hairless" or phenotype.furtype != [""] or phenotype.furLength[0] != "L":
+    def Arab(genotype, phenotype):
+        if phenotype.length == "hairless" or phenotype.furtype != [""] or genotype.furLength[0] != "L":
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] != "dm" or phenotype.pinkdilute[0] == "dp":
+        if genotype.dilutemd[0] != "dm" or genotype.pinkdilute[0] == "dp":
             return False
 
-        if phenotype.pointgene[0] != "C" or (phenotype.eumelanin[0] != "B" and 'o' in phenotype.sexgene) or phenotype.silver[0] != "i":
+        if genotype.pointgene[0] != "C" or (genotype.eumelanin[0] != "B" and 'o' in genotype.sexgene) or genotype.silver[0] != "i":
             return False
-        if phenotype.white[0] in ["W", "wg"]:
+        if genotype.white[0] in ["W", "wg"]:
             return False
-        if phenotype.agouti[0] == "A" and (phenotype.ticked[0] != "ta" or phenotype.mack[0] == "mc" or phenotype.wbsum > 11 or\
-                                            phenotype.ticksum > 3 or phenotype.bengsum > 3 or phenotype.soksum > 3):
+        if genotype.agouti[0] == "A" and (genotype.ticked[0] != "ta" or genotype.mack[0] == "mc" or genotype.wbsum > 11 or\
+                                            genotype.ticksum > 3 or genotype.bengsum > 3 or genotype.soksum > 3):
             return False
-        if 'o' not in phenotype.sexgene and phenotype.dilute[0] == "d":
+        if 'o' not in genotype.sexgene and genotype.dilute[0] == "d":
             return False
 
         return "Arabian Mau"
 
     @staticmethod
-    def Asian(phenotype):
+    def Asian(genotype, phenotype):
         if phenotype.length == "hairless" or phenotype.furtype != [""]:
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.pinkdilute[0] == "dp":
+        if genotype.pinkdilute[0] == "dp":
             return False
-        if phenotype.agouti[0] == "Apb":
+        if genotype.agouti[0] == "Apb":
             return False
-        if phenotype.agouti[0] == "A" and (phenotype.bengsum > 3 or phenotype.soksum > 3):
-            return False
-    
-        if phenotype.white[0] != "w" or phenotype.pointgene[0] not in ["C", "cb"] or (('cm' in phenotype.pointgene or 'c' in phenotype.pointgene) and phenotype.pointgene[0] != "C"):
+        if genotype.agouti[0] == "A" and (genotype.bengsum > 3 or genotype.soksum > 3):
             return False
     
-        if phenotype.agouti[0] != "a" and phenotype.wbsum > 11:
+        if genotype.white[0] != "w" or genotype.pointgene[0] not in ["C", "cb"] or (('cm' in genotype.pointgene or 'c' in genotype.pointgene) and genotype.pointgene[0] != "C"):
+            return False
+    
+        if genotype.agouti[0] != "a" and genotype.wbsum > 11:
             return "Burmilla"
-        if phenotype.agouti[0] == "a" and phenotype.pointgene[0] == "cb":
+        if genotype.agouti[0] == "a" and genotype.pointgene[0] == "cb":
             return "European Burmese"
-        if phenotype.furLength[0] == "l":
+        if genotype.furLength[0] == "l":
             return "Asian Longhair"
         return "Asian Shorthair"
 
     @staticmethod
-    def AusMist(phenotype):
+    def AusMist(genotype, phenotype):
         if phenotype.length == "hairless" or phenotype.furtype != [""]:
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.pinkdilute[0] == "dp":
+        if genotype.pinkdilute[0] == "dp":
             return False
-        if phenotype.agouti[0] != "A" or 'O' in phenotype.sexgene or phenotype.silver[0] == "I" or phenotype.white[0] != "w":
+        if genotype.agouti[0] != "A" or 'O' in genotype.sexgene or genotype.silver[0] == "I" or genotype.white[0] != "w":
             return False
-        if phenotype.bengsum > 3 or phenotype.soksum > 3:
+        if genotype.bengsum > 3 or genotype.soksum > 3:
             return False
 
-        if phenotype.pointgene[0] != "cb" or phenotype.ticked[0] != "ta" or (phenotype.mack[0] != "mc" and phenotype.spotsum < 6):
+        if genotype.pointgene[0] != "cb" or genotype.ticked[0] != "ta" or (genotype.mack[0] != "mc" and genotype.spotsum < 6):
             return False
         
         return "Australian Mist"
 
     @staticmethod
-    def Bengal(phenotype):
+    def Bengal(genotype, phenotype):
         if phenotype.length == "hairless" or (phenotype.furtype != [""] and phenotype.furtype != [" shiny", " fur"]):
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] != "dm" or phenotype.pinkdilute[0] == "dp":
+        if genotype.dilutemd[0] != "dm" or genotype.pinkdilute[0] == "dp":
             return False
 
-        if phenotype.white[0] != "w" or (('cm' in phenotype.pointgene or 'c' in phenotype.pointgene) and phenotype.pointgene[0] != "C"):
+        if genotype.white[0] != "w" or (('cm' in genotype.pointgene or 'c' in genotype.pointgene) and genotype.pointgene[0] != "C"):
             return False
-        if phenotype.ticked[0] == 'Ta' or (phenotype.mack[0] == "Mc" and phenotype.spotsum < 6):
+        if genotype.ticked[0] == 'Ta' or (genotype.mack[0] == "Mc" and genotype.spotsum < 6):
             return False
         
-        if phenotype.furLength[0] == "l":
+        if genotype.furLength[0] == "l":
             return "Cashmere"
         return "Bengal"
 
     @staticmethod
-    def Birman(phenotype):
+    def Birman(genotype, phenotype):
         if phenotype.length == "hairless" or phenotype.furtype != [""]:
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.pinkdilute[0] == "dp":
+        if genotype.pinkdilute[0] == "dp":
             return False
-        if phenotype.agouti[0] == "Apb":
+        if genotype.agouti[0] == "Apb":
             return False
-        if phenotype.agouti[0] == "A" and (phenotype.bengsum > 3 or phenotype.soksum > 3):
+        if genotype.agouti[0] == "A" and (genotype.bengsum > 3 or genotype.soksum > 3):
             return False
 
-        if phenotype.pointgene[0] != "cs" or phenotype.white[0] != 'wg':
+        if genotype.pointgene[0] != "cs" or genotype.white[0] != 'wg':
             return False
     
-        if phenotype.furLength[0] == "L":
+        if genotype.furLength[0] == "L":
             return "Templecat"
         return "Birman"
 
     @staticmethod
-    def Brazil(phenotype):
+    def Brazil(genotype, phenotype):
         if phenotype.length != "shorthaired" or phenotype.furtype != [""]:
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] != "dm" or phenotype.pinkdilute[0] == "dp":
+        if genotype.dilutemd[0] != "dm" or genotype.pinkdilute[0] == "dp":
             return False
 
-        if phenotype.pointgene[0] != "C":
+        if genotype.pointgene[0] != "C":
             return False
-        if phenotype.agouti[0] == "A" and (phenotype.bengsum > 3 or phenotype.soksum > 3):
+        if genotype.agouti[0] == "A" and (genotype.bengsum > 3 or genotype.soksum > 3):
             return False
-        if phenotype.agouti[0] == "Apb":
+        if genotype.agouti[0] == "Apb":
             return False
     
         return "Brazilian Shorthair"
 
     @staticmethod
-    def British(phenotype):
+    def British(genotype, phenotype):
         if phenotype.length == "hairless" or phenotype.furtype != [""]:
             return False
-        if phenotype.curl[0] != "cu" or phenotype.tailtype != "" or phenotype.pawtype != "":
+        if genotype.curl[0] != "cu" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E":
+        if genotype.ext[0] != "E":
             return False
-        if phenotype.pinkdilute[0] == "dp":
+        if genotype.pinkdilute[0] == "dp":
             return False
 
-        if (('cm' in phenotype.pointgene or 'c' in phenotype.pointgene) and phenotype.pointgene[0] != "C"):
+        if (('cm' in genotype.pointgene or 'c' in genotype.pointgene) and genotype.pointgene[0] != "C"):
             return False
-        if phenotype.agouti[0] == "A" and (phenotype.bengsum > 3 or phenotype.soksum > 3):
+        if genotype.agouti[0] == "A" and (genotype.bengsum > 3 or genotype.soksum > 3):
             return False
-        if phenotype.agouti[0] == "Apb":
+        if genotype.agouti[0] == "Apb":
             return False
     
-        if phenotype.fold[0] == "Fd":
+        if genotype.fold[0] == "Fd":
             return "Scottish Fold"
-        if phenotype.white[0] == 'w' and phenotype.pointgene[0] == 'C' and phenotype.pax3[0] == 'DBEcel':
-            if phenotype.furLength[0] == "l":
+        if genotype.white[0] == 'w' and genotype.pointgene[0] == 'C' and genotype.pax3[0] == 'DBEcel':
+            if genotype.furLength[0] == "l":
                 return "Celestial Longhair"
             return "Celestial Shorthair"
-        if phenotype.furLength[0] == "l":
+        if genotype.furLength[0] == "l":
             return "British Longhair"
         return "British Shorthair"
 
     @staticmethod
-    def Ceylon(phenotype):
+    def Ceylon(genotype, phenotype):
         if phenotype.length != "shorthaired" or phenotype.furtype != [""]:
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] != "dm" or phenotype.pinkdilute[0] == "dp":
+        if genotype.dilutemd[0] != "dm" or genotype.pinkdilute[0] == "dp":
             return False
-        if phenotype.agouti[0] != "A" or (phenotype.wbsum > 11 or phenotype.bengsum > 3 or phenotype.soksum > 3):
+        if genotype.agouti[0] != "A" or (genotype.wbsum > 11 or genotype.bengsum > 3 or genotype.soksum > 3):
             return False
 
-        if phenotype.eumelanin[0] != "B" or phenotype.white[0] != 'w':
+        if genotype.eumelanin[0] != "B" or genotype.white[0] != 'w':
             return False
-        if phenotype.silver[0] == 'I' or phenotype.pointgene[0] != "C":
+        if genotype.silver[0] == 'I' or genotype.pointgene[0] != "C":
             return False
         
         return "Ceylon"
 
     @staticmethod
-    def Chartreux(phenotype):
+    def Chartreux(genotype, phenotype):
         if phenotype.length != "shorthaired" or phenotype.furtype != [""]:
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] != "dm" or phenotype.pinkdilute[0] == "dp":
+        if genotype.dilutemd[0] != "dm" or genotype.pinkdilute[0] == "dp":
             return False
-        if phenotype.agouti[0] != "a":
+        if genotype.agouti[0] != "a":
             return False
 
-        if phenotype.eumelanin[0] != "B" or 'O' in phenotype.sexgene or phenotype.dilute[0] != 'd' or phenotype.white[0] != 'w':
+        if genotype.eumelanin[0] != "B" or 'O' in genotype.sexgene or genotype.dilute[0] != 'd' or genotype.white[0] != 'w':
             return False
-        if phenotype.silver[0] == 'I' or phenotype.pointgene[0] != "C":
+        if genotype.silver[0] == 'I' or genotype.pointgene[0] != "C":
             return False
         
-        if phenotype.breeds.get("Chartreux", 0) >= 75:
+        if genotype.breeds.get("Chartreux", 0) >= 75:
             return "Chartreux"
-        if phenotype.breeds.get("Korat", 0) >= 75:
+        if genotype.breeds.get("Korat", 0) >= 75:
             return "Korat"
 
         return "Huh????"
 
     @staticmethod
-    def Chausie(phenotype):
+    def Chausie(genotype, phenotype):
         if phenotype.length != "shorthaired" or phenotype.furtype != [""]:
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] not in ["E", "Eg"] or phenotype.corin[0] != "N":
+        if genotype.ext[0] not in ["E", "Eg"] or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] != "dm" or phenotype.pinkdilute[0] == "dp":
+        if genotype.dilutemd[0] != "dm" or genotype.pinkdilute[0] == "dp":
             return False
-        if phenotype.agouti[0] == "Apb":
+        if genotype.agouti[0] == "Apb":
             return False
 
-        if phenotype.eumelanin[0] != "B" or 'O' in phenotype.sexgene or phenotype.dilute[0] != 'D' or phenotype.white[0] != 'w':
+        if genotype.eumelanin[0] != "B" or 'O' in genotype.sexgene or genotype.dilute[0] != 'D' or genotype.white[0] != 'w':
             return False
-        if phenotype.silver[0] == 'I' or phenotype.pointgene[0] != "C" or phenotype.ticked[0] != "Ta" or phenotype.wbsum > 11:
+        if genotype.silver[0] == 'I' or genotype.pointgene[0] != "C" or genotype.ticked[0] != "Ta" or genotype.wbsum > 11:
             return False
         
         return "Chausie"
 
     @staticmethod
-    def Cornish(phenotype):
-        if phenotype.length == "hairless" or (phenotype.furtype != ["rexed", " fur"] and phenotype.cornish[0] != "r"):
+    def Clippercat(genotype, phenotype):
+        if phenotype.length == "hairless" or phenotype.furtype != [""]:
+            return False
+        if phenotype.eartype != "" or phenotype.tailtype != "" or genotype.munch[0] == "Mk" or genotype.poly[0] != "Pd":
+            return False
+        
+        if phenotype.fade != "" or genotype.karp[0] == "K":
+            return False
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
+            return False
+        if genotype.dilutemd[0] != "dm" or genotype.pinkdilute[0] == "dp":
+            return False
+        if (('cm' in genotype.pointgene or 'c' in genotype.pointgene or 'cb' in genotype.pointgene) and genotype.pointgene[0] != "C"):
+            return False
+
+        if genotype.agouti[0] == "A" and (genotype.bengsum > 3 or genotype.soksum > 3 or genotype.wbsum > 11):
+            return False
+        if genotype.agouti[0] == "Apb":
+            return False
+    
+        return "Clippercat"
+
+    @staticmethod
+    def Cornish(genotype, phenotype):
+        if phenotype.length == "hairless" or (phenotype.furtype != ["rexed", " fur"] and genotype.cornish[0] != "r"):
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.pinkdilute[0] == "dp":
+        if genotype.pinkdilute[0] == "dp":
             return False
-        if phenotype.agouti[0] == "A" and (phenotype.bengsum > 3 or phenotype.soksum > 3):
+        if genotype.agouti[0] == "A" and (genotype.bengsum > 3 or genotype.soksum > 3):
             return False
-        if phenotype.agouti[0] == "Apb":
+        if genotype.agouti[0] == "Apb":
             return False
-        if (('cm' in phenotype.pointgene or 'c' in phenotype.pointgene) and phenotype.pointgene[0] != "C"):
+        if (('cm' in genotype.pointgene or 'c' in genotype.pointgene) and genotype.pointgene[0] != "C"):
             return False
     
-        if phenotype.breeds.get("Cornish Rex", 0) >= 75:
-            if phenotype.furLength[0] == "l":
+        if genotype.breeds.get("Cornish Rex", 0) >= 75:
+            if genotype.furLength[0] == "l":
                 return "Californian Rex"
             return "Cornish Rex"
-        if phenotype.breeds.get("German Rex", 0) >= 75:
-            if phenotype.furLength[0] == "l":
+        if genotype.breeds.get("German Rex", 0) >= 75:
+            if genotype.furLength[0] == "l":
                 return False
             return "German Rex"
 
     @staticmethod
-    def Devon(phenotype):
-        if phenotype.length == "hairless" or (phenotype.furtype != ["rexed", " fur"] and phenotype.sedesp[0] != "re"):
+    def Devon(genotype, phenotype):
+        if phenotype.length == "hairless" or (phenotype.furtype != ["rexed", " fur"] and genotype.sedesp[0] != "re"):
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.pinkdilute[0] == "dp":
+        if genotype.pinkdilute[0] == "dp":
             return False
-        if phenotype.agouti[0] == "A" and (phenotype.bengsum > 3 or phenotype.soksum > 3):
+        if genotype.agouti[0] == "A" and (genotype.bengsum > 3 or genotype.soksum > 3):
             return False
-        if phenotype.agouti[0] == "Apb":
+        if genotype.agouti[0] == "Apb":
             return False
-        if (('cm' in phenotype.pointgene or 'c' in phenotype.pointgene) and phenotype.pointgene[0] != "C"):
+        if (('cm' in genotype.pointgene or 'c' in genotype.pointgene) and genotype.pointgene[0] != "C"):
             return False
     
         return "Devon Rex"
 
     @staticmethod
-    def Donskoy(phenotype):
+    def Donskoy(genotype, phenotype):
         if 'sparse' in phenotype.furtype or 'wiry' in phenotype.furtype or 'rexed' in phenotype.furtype or 'no undercoat' in phenotype.furtype or 'satin' in phenotype.furtype or 'shiny' in phenotype.furtype:
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] == "Dm":
+        if genotype.dilutemd[0] == "Dm":
             return False
-        if phenotype.agouti[0] == "A" and (phenotype.bengsum > 3 or phenotype.soksum > 3):
+        if genotype.agouti[0] == "A" and (genotype.bengsum > 3 or genotype.soksum > 3):
             return False
-        if phenotype.agouti[0] == "Apb":
+        if genotype.agouti[0] == "Apb":
             return False
-        if (('cm' in phenotype.pointgene or 'c' in phenotype.pointgene) and phenotype.pointgene[0] != "C"):
+        if (('cm' in genotype.pointgene or 'c' in genotype.pointgene) and genotype.pointgene[0] != "C"):
             return False
     
         return "Donskoy"
 
     @staticmethod
-    def Egyptian(phenotype):
+    def Egyptian(genotype, phenotype):
         if phenotype.length != "shorthaired" or phenotype.furtype != [""]:
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] != "dm" or phenotype.pinkdilute[0] == "dp":
+        if genotype.dilutemd[0] != "dm" or genotype.pinkdilute[0] == "dp":
             return False
-        if (('cm' in phenotype.pointgene or 'c' in phenotype.pointgene or 'cb' in phenotype.pointgene) and phenotype.pointgene[0] != "C"):
-            return False
-
-        if phenotype.agouti[0] == "A" and (phenotype.bengsum > 3 or phenotype.soksum > 3 or phenotype.wbsum > 11):
-            return False
-        if phenotype.agouti[0] == "Apb":
+        if (('cm' in genotype.pointgene or 'c' in genotype.pointgene or 'cb' in genotype.pointgene) and genotype.pointgene[0] != "C"):
             return False
 
-        if phenotype.eumelanin[0] != "B" or 'O' in phenotype.sexgene or phenotype.dilute[0] != "D" or phenotype.white[0] != "w" or phenotype.pointgene[0] != "C":
+        if genotype.agouti[0] == "A" and (genotype.bengsum > 3 or genotype.soksum > 3 or genotype.wbsum > 11):
             return False
-        if phenotype.ticked[0] != "ta" or phenotype.mack[0] != "Mc" or phenotype.spotsum < 6:
+        if genotype.agouti[0] == "Apb":
+            return False
+
+        if genotype.eumelanin[0] != "B" or 'O' in genotype.sexgene or genotype.dilute[0] != "D" or genotype.white[0] != "w" or genotype.pointgene[0] != "C":
+            return False
+        if genotype.ticked[0] != "ta" or genotype.mack[0] != "Mc" or genotype.spotsum < 6:
             return False
     
         
-        if phenotype.breeds.get("Egyptian Mau", 0) >= 75:
+        if genotype.breeds.get("Egyptian Mau", 0) >= 75:
             return "Egyptian Mau"
-        if phenotype.breeds.get("Savannah", 0) >= 75:
+        if genotype.breeds.get("Savannah", 0) >= 75:
             return "Savannah"
 
         return "Huh????"
 
     @staticmethod
-    def European(phenotype):
+    def European(genotype, phenotype):
         if phenotype.length != "shorthaired" or phenotype.furtype != [""]:
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] != "dm" or phenotype.pinkdilute[0] == "dp":
-            return False
-
-        if phenotype.agouti[0] == "A" and (phenotype.bengsum > 3 or phenotype.soksum > 3):
-            return False
-        if phenotype.agouti[0] == "Apb":
+        if genotype.dilutemd[0] != "dm" or genotype.pinkdilute[0] == "dp":
             return False
 
-        if phenotype.eumelanin[0] != "B" or phenotype.pointgene[0] != "C":
+        if genotype.agouti[0] == "A" and (genotype.bengsum > 3 or genotype.soksum > 3):
+            return False
+        if genotype.agouti[0] == "Apb":
+            return False
+
+        if genotype.eumelanin[0] != "B" or genotype.pointgene[0] != "C":
             return False
         
         return "European Shorthair"
 
     @staticmethod
-    def GermanLH(phenotype):
+    def GermanLH(genotype, phenotype):
         if phenotype.length != "longhaired" or phenotype.furtype != [""]:
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
@@ -3624,1060 +3657,1039 @@ class Breed_checker:
         
         if phenotype.fade != "":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] != "dm" or phenotype.pinkdilute[0] == "dp":
+        if genotype.dilutemd[0] != "dm" or genotype.pinkdilute[0] == "dp":
             return False
-        if (('cm' in phenotype.pointgene or 'c' in phenotype.pointgene or 'cb' in phenotype.pointgene) and phenotype.pointgene[0] != "C"):
+        if (('cm' in genotype.pointgene or 'c' in genotype.pointgene or 'cb' in genotype.pointgene) and genotype.pointgene[0] != "C"):
             return False
 
-        if phenotype.agouti[0] == "A" and (phenotype.bengsum > 3 or phenotype.soksum > 3):
+        if genotype.agouti[0] == "A" and (genotype.bengsum > 3 or genotype.soksum > 3):
             return False
-        if phenotype.agouti[0] == "Apb":
+        if genotype.agouti[0] == "Apb":
             return False
         
         return "German Longhair"
 
     @staticmethod
-    def Havana(phenotype):
+    def Havana(genotype, phenotype):
         if phenotype.length != "shorthaired" or phenotype.furtype != [""]:
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] != "dm" or phenotype.pinkdilute[0] == "dp":
+        if genotype.dilutemd[0] != "dm" or genotype.pinkdilute[0] == "dp":
             return False
-        if phenotype.agouti[0] != "a":
+        if genotype.agouti[0] != "a":
             return False
 
-        if phenotype.eumelanin[0] != "b" or 'O' in phenotype.sexgene or phenotype.white[0] != 'w':
+        if genotype.eumelanin[0] != "b" or 'O' in genotype.sexgene or genotype.white[0] != 'w':
             return False
-        if phenotype.silver[0] == 'I' or phenotype.pointgene[0] != "C":
+        if genotype.silver[0] == 'I' or genotype.pointgene[0] != "C":
             return False
         
         return "Havana"
 
     @staticmethod
-    def Highlander(phenotype):
+    def Highlander(genotype, phenotype):
         if phenotype.length == "hairless" or phenotype.furtype != [""]:
             return False
-        if phenotype.curl[0] != "Cu" or phenotype.fold[0] == "Fd" or (phenotype.tailtype != "" and phenotype.manx[0] != "Ab") or phenotype.munch[0] == "Mk":
+        if genotype.curl[0] != "Cu" or genotype.fold[0] == "Fd" or (phenotype.tailtype != "" and genotype.manx[0] != "Ab") or genotype.munch[0] == "Mk":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] != "dm" or phenotype.pinkdilute[0] == "dp":
+        if genotype.dilutemd[0] != "dm" or genotype.pinkdilute[0] == "dp":
             return False
-        if (('cm' in phenotype.pointgene or 'c' in phenotype.pointgene) and phenotype.pointgene[0] != "C"):
+        if (('cm' in genotype.pointgene or 'c' in genotype.pointgene) and genotype.pointgene[0] != "C"):
             return False
 
-        if phenotype.agouti[0] == "A" and (phenotype.bengsum > 3 or phenotype.soksum > 3):
+        if genotype.agouti[0] == "A" and (genotype.bengsum > 3 or genotype.soksum > 3):
             return False
-        if phenotype.agouti[0] == "Apb":
+        if genotype.agouti[0] == "Apb":
             return False
     
         return "Highlander"
 
     @staticmethod
-    def JapBob(phenotype):
+    def JapBob(genotype, phenotype):
         if phenotype.length == "hairless" or phenotype.furtype != [""]:
             return False
-        if phenotype.eartype != "" or (phenotype.tailtype.find("pom-pom") == -1 or phenotype.jbob[0] != "jb") or phenotype.pawtype != "":
+        if phenotype.eartype != "" or (phenotype.tailtype.find("pom-pom") == -1 or genotype.jbob[0] != "jb") or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] != "dm" or phenotype.pinkdilute[0] == "dp":
+        if genotype.dilutemd[0] != "dm" or genotype.pinkdilute[0] == "dp":
             return False
-        if (('cm' in phenotype.pointgene or 'c' in phenotype.pointgene) and phenotype.pointgene[0] != "C"):
+        if (('cm' in genotype.pointgene or 'c' in genotype.pointgene) and genotype.pointgene[0] != "C"):
             return False
 
-        if phenotype.agouti[0] == "A" and (phenotype.bengsum > 3 or phenotype.soksum > 3):
+        if genotype.agouti[0] == "A" and (genotype.bengsum > 3 or genotype.soksum > 3):
             return False
-        if phenotype.agouti[0] == "Apb":
+        if genotype.agouti[0] == "Apb":
             return False
         
         return "Japanese Bobtail"
 
     @staticmethod
-    def Kanaani(phenotype):
+    def Kanaani(genotype, phenotype):
         if phenotype.length != "shorthaired" or phenotype.furtype != [""]:
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] != "dm" or phenotype.pinkdilute[0] == "dp":
+        if genotype.dilutemd[0] != "dm" or genotype.pinkdilute[0] == "dp":
             return False
-        if phenotype.agouti[0] != "A" or (phenotype.wbsum > 11 or phenotype.bengsum > 3 or phenotype.soksum > 3):
+        if genotype.agouti[0] != "A" or (genotype.wbsum > 11 or genotype.bengsum > 3 or genotype.soksum > 3):
             return False
 
-        if 'O' in phenotype.sexgene or phenotype.dilute[0] == 'd' or phenotype.white[0] != 'w':
+        if 'O' in genotype.sexgene or genotype.dilute[0] == 'd' or genotype.white[0] != 'w':
             return False
-        if phenotype.silver[0] == 'I' or phenotype.pointgene[0] != "C" or phenotype.agouti[0] != "A":
+        if genotype.silver[0] == 'I' or genotype.pointgene[0] != "C" or genotype.agouti[0] != "A":
             return False
-        if phenotype.ticked[0] != "ta" or (phenotype.mack[0] == "Mc" and phenotype.spotsum < 6):
+        if genotype.ticked[0] != "ta" or (genotype.mack[0] == "Mc" and genotype.spotsum < 6):
             return False
         
         return "Kanaani"
 
     @staticmethod
-    def Karel(phenotype):
+    def Karel(genotype, phenotype):
         if phenotype.length == "hairless" or phenotype.furtype != [""]:
             return False
-        if phenotype.eartype != "" or (phenotype.tailtype.find("pom-pom") == -1 or phenotype.kab[0] != "kab") or phenotype.pawtype != "":
+        if phenotype.eartype != "" or (phenotype.tailtype.find("pom-pom") == -1 or genotype.kab[0] != "kab") or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] != "dm" or phenotype.pinkdilute[0] == "dp":
+        if genotype.dilutemd[0] != "dm" or genotype.pinkdilute[0] == "dp":
             return False
-        if (('cm' in phenotype.pointgene or 'c' in phenotype.pointgene) and phenotype.pointgene[0] != "C"):
-            return False
-
-        if phenotype.agouti[0] == "A" and (phenotype.bengsum > 3 or phenotype.soksum > 3):
-            return False
-        if phenotype.agouti[0] == "Apb":
+        if (('cm' in genotype.pointgene or 'c' in genotype.pointgene) and genotype.pointgene[0] != "C"):
             return False
 
-        if phenotype.eumelanin[0] != "B" or phenotype.pointgene[0] != "C":
+        if genotype.agouti[0] == "A" and (genotype.bengsum > 3 or genotype.soksum > 3):
+            return False
+        if genotype.agouti[0] == "Apb":
+            return False
+
+        if genotype.eumelanin[0] != "B" or genotype.pointgene[0] != "C":
             return False
         
         return "Karelian Bobtail"
 
     @staticmethod
-    def Khao(phenotype):
+    def Khao(genotype, phenotype):
         if phenotype.length != "shorthaired" or phenotype.furtype != [""]:
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] != "dm" or phenotype.pinkdilute[0] == "dp":
+        if genotype.dilutemd[0] != "dm" or genotype.pinkdilute[0] == "dp":
             return False
 
-        if phenotype.white[0] != "W":
+        if genotype.white[0] != "W":
             return False
         
         return "Khao Manee"
 
     @staticmethod
-    def Kuril(phenotype):
+    def Kuril(genotype, phenotype):
         if phenotype.length == "hairless" or phenotype.furtype != [""]:
             return False
-        if phenotype.eartype != "" or (phenotype.tailtype.find("pom-pom") == -1 or phenotype.kub[0] != "Kub") or phenotype.pawtype != "":
+        if phenotype.eartype != "" or (phenotype.tailtype.find("pom-pom") == -1 or genotype.kub[0] != "Kub") or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] not in ["E", 'ec'] or phenotype.corin[0] != "N":
+        if genotype.ext[0] not in ["E", 'ec'] or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] != "dm" or phenotype.pinkdilute[0] == "dp":
+        if genotype.dilutemd[0] != "dm" or genotype.pinkdilute[0] == "dp":
             return False
-        if (('cm' in phenotype.pointgene or 'c' in phenotype.pointgene) and phenotype.pointgene[0] != "C"):
-            return False
-
-        if phenotype.agouti[0] == "A" and (phenotype.bengsum > 3 or phenotype.soksum > 3):
-            return False
-        if phenotype.agouti[0] == "Apb":
+        if (('cm' in genotype.pointgene or 'c' in genotype.pointgene) and genotype.pointgene[0] != "C"):
             return False
 
-        if phenotype.eumelanin[0] != "B" or phenotype.pointgene[0] != "C":
+        if genotype.agouti[0] == "A" and (genotype.bengsum > 3 or genotype.soksum > 3):
+            return False
+        if genotype.agouti[0] == "Apb":
+            return False
+
+        if genotype.eumelanin[0] != "B" or genotype.pointgene[0] != "C":
             return False
         
         return "Kurilian Bobtail"
 
     @staticmethod
-    def LaPerm(phenotype):
-        if phenotype.length == "hairless" or (phenotype.furtype != ["rexed", " fur"] and phenotype.laperm[0] != "Lp"):
+    def LaPerm(genotype, phenotype):
+        if phenotype.length == "hairless" or (phenotype.furtype != ["rexed", " fur"] and genotype.laperm[0] != "Lp"):
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.ghosting[0] == "Gh":
+        if genotype.ghosting[0] == "Gh":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.pinkdilute[0] == "dp":
+        if genotype.pinkdilute[0] == "dp":
             return False
-        if phenotype.agouti[0] == "A" and (phenotype.bengsum > 3 or phenotype.soksum > 3):
+        if genotype.agouti[0] == "A" and (genotype.bengsum > 3 or genotype.soksum > 3):
             return False
-        if phenotype.agouti[0] == "Apb":
+        if genotype.agouti[0] == "Apb":
             return False
-        if (('cm' in phenotype.pointgene or 'c' in phenotype.pointgene) and phenotype.pointgene[0] != "C"):
+        if (('cm' in genotype.pointgene or 'c' in genotype.pointgene) and genotype.pointgene[0] != "C"):
             return False
     
         return "LaPerm"
 
     @staticmethod
-    def Lin(phenotype):
+    def Lin(genotype, phenotype):
         if phenotype.length != "longhaired" or phenotype.furtype != [""]:
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] != "dm" or phenotype.pinkdilute[0] == "dp":
+        if genotype.dilutemd[0] != "dm" or genotype.pinkdilute[0] == "dp":
             return False
-        if phenotype.agouti[0] != "a":
+        if genotype.agouti[0] != "a":
             return False
 
-        if phenotype.eumelanin[0] != "B" or 'O' in phenotype.sexgene or 'wt' in phenotype.white:
+        if genotype.eumelanin[0] != "B" or 'O' in genotype.sexgene or 'wt' in genotype.white:
             return False
-        if phenotype.silver[0] == 'I' or phenotype.pointgene[0] != "C" or phenotype.dilute[0] != "D":
+        if genotype.silver[0] == 'I' or genotype.pointgene[0] != "C" or genotype.dilute[0] != "D":
             return False
         
         return "Lin-Qing Lion cat"
 
     @staticmethod
-    def Lykoi(phenotype):
+    def Lykoi(genotype, phenotype):
         if phenotype.length == "hairless" or (phenotype.furtype != ["sparse", " fur"]):
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] != "dm" or phenotype.pinkdilute[0] == "dp":
+        if genotype.dilutemd[0] != "dm" or genotype.pinkdilute[0] == "dp":
             return False
-        if phenotype.agouti[0] == "A" and (phenotype.bengsum > 3 or phenotype.soksum > 3):
+        if genotype.agouti[0] == "A" and (genotype.bengsum > 3 or genotype.soksum > 3):
             return False
-        if phenotype.agouti[0] == "Apb":
+        if genotype.agouti[0] == "Apb":
             return False
-        if (('cm' in phenotype.pointgene or 'c' in phenotype.pointgene) and phenotype.pointgene[0] != "C"):
+        if (('cm' in genotype.pointgene or 'c' in genotype.pointgene) and genotype.pointgene[0] != "C"):
             return False
     
         return "Lykoi"
 
     @staticmethod
-    def Mandalay(phenotype):
+    def Mandalay(genotype, phenotype):
         if phenotype.furtype != [""]:
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] not in ["E", "er"] or phenotype.corin[0] != "N":
+        if genotype.ext[0] not in ["E", "er"] or genotype.corin[0] != "N":
             return False
-        if phenotype.pinkdilute[0] == "dp":
+        if genotype.pinkdilute[0] == "dp":
             return False
-        if (('cm' in phenotype.pointgene or 'c' in phenotype.pointgene or 'cs' in phenotype.pointgene) and phenotype.pointgene[0] != "C"):
+        if (('cm' in genotype.pointgene or 'c' in genotype.pointgene or 'cs' in genotype.pointgene) and genotype.pointgene[0] != "C"):
             return False
 
-        if phenotype.agouti[0] == "A" and (phenotype.bengsum > 3 or phenotype.soksum > 3 or phenotype.ticked[0] != "Ta"):
+        if genotype.agouti[0] == "A" and (genotype.bengsum > 3 or genotype.soksum > 3 or genotype.ticked[0] != "Ta"):
             return False
-        if phenotype.agouti[0] == "Apb":
+        if genotype.agouti[0] == "Apb":
             return False
         
-        if phenotype.furLength[0] == 'l':
+        if genotype.furLength[0] == 'l':
             return "Tiffany"
-        if phenotype.pointgene[0] == "cb":
+        if genotype.pointgene[0] == "cb":
             return "Burmese"
         return "Mandalay"
 
     @staticmethod
-    def Maine(phenotype):
+    def Maine(genotype, phenotype):
         if phenotype.length != "longhaired" or phenotype.furtype != [""]:
             return False
-        if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.munch[0] != "mk":
+        if phenotype.eartype != "" or phenotype.tailtype != "" or genotype.munch[0] != "mk":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] != "dm" or phenotype.pinkdilute[0] == "dp":
-            return False
-
-        if phenotype.agouti[0] == "A" and (phenotype.bengsum > 3 or phenotype.soksum > 3):
-            return False
-        if phenotype.agouti[0] == "Apb":
+        if genotype.dilutemd[0] != "dm" or genotype.pinkdilute[0] == "dp":
             return False
 
-        if phenotype.pointgene[0] != "C":
+        if genotype.agouti[0] == "A" and (genotype.bengsum > 3 or genotype.soksum > 3):
             return False
-        phenotype.longtype = "long"
+        if genotype.agouti[0] == "Apb":
+            return False
+
+        if genotype.pointgene[0] != "C":
+            return False
+        genotype.longtype = "long"
 
         return "Maine Coon"
 
     @staticmethod
-    def Manx(phenotype):
-        if phenotype.length == "hairless" or (phenotype.furtype != [""] and (phenotype.furtype != ["rexed", " fur"] and phenotype.cornish[0] != "r")):
+    def Manx(genotype, phenotype):
+        if phenotype.length == "hairless" or (phenotype.furtype != [""] and (phenotype.furtype != ["rexed", " fur"] and genotype.cornish[0] != "r")):
             return False
-        if phenotype.eartype != "" or (phenotype.tailtype != "" and phenotype.manx[0] != "M") or phenotype.pawtype != "":
+        if phenotype.eartype != "" or (phenotype.tailtype != "" and genotype.manx[0] != "M") or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] not in ["E", 'ec'] or phenotype.corin[0] != "N":
+        if genotype.ext[0] not in ["E", 'ec'] or genotype.corin[0] != "N":
             return False
-        if phenotype.pinkdilute[0] == "dp":
+        if genotype.pinkdilute[0] == "dp":
             return False
-        if (('cm' in phenotype.pointgene or 'c' in phenotype.pointgene) and phenotype.pointgene[0] != "C"):
+        if (('cm' in genotype.pointgene or 'c' in genotype.pointgene) and genotype.pointgene[0] != "C"):
             return False
 
-        if phenotype.agouti[0] == "A" and (phenotype.bengsum > 3 or phenotype.soksum > 3):
+        if genotype.agouti[0] == "A" and (genotype.bengsum > 3 or genotype.soksum > 3):
             return False
-        if phenotype.agouti[0] == "Apb":
+        if genotype.agouti[0] == "Apb":
             return False
         
-        if phenotype.cornish[0] == "r":
-            if phenotype.furLength[0] == "l":
+        if genotype.cornish[0] == "r":
+            if genotype.furLength[0] == "l":
                 return "Tasman Cymric"
             return "Tasman Manx"
-        if phenotype.furLength[0] == "l":
+        if genotype.furLength[0] == "l":
             return "Cymric"
         return "Manx"
 
     @staticmethod
-    def Mekong(phenotype):
+    def Mekong(genotype, phenotype):
         if phenotype.length != "shorthaired" or phenotype.furtype != [""]:
             return False
-        if phenotype.eartype != "" or (phenotype.tailtype.find("pom-pom") == -1 or phenotype.jbob[0] != "jb") or phenotype.pawtype != "":
+        if phenotype.eartype != "" or (phenotype.tailtype.find("pom-pom") == -1 or genotype.jbob[0] != "jb") or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] != "dm" or phenotype.pinkdilute[0] == "dp":
+        if genotype.dilutemd[0] != "dm" or genotype.pinkdilute[0] == "dp":
             return False
-        if (('cm' in phenotype.pointgene or 'c' in phenotype.pointgene) and phenotype.pointgene[0] != "C"):
+        if (('cm' in genotype.pointgene or 'c' in genotype.pointgene) and genotype.pointgene[0] != "C"):
             return False
 
-        if phenotype.agouti[0] == "A" and (phenotype.bengsum > 3 or phenotype.soksum > 3):
+        if genotype.agouti[0] == "A" and (genotype.bengsum > 3 or genotype.soksum > 3):
             return False
-        if phenotype.agouti[0] == "Apb":
+        if genotype.agouti[0] == "Apb":
             return False
     
-        if phenotype.white[0] != "w" or phenotype.pointgene[0] != "cs":
+        if genotype.white[0] != "w" or genotype.pointgene[0] != "cs":
             return False
         
         return "Mekong Bobtail"
 
     @staticmethod
-    def Munchkin(phenotype):
+    def Munchkin(genotype, phenotype):
         if phenotype.length == "hairless" or phenotype.furtype != [""]:
             return False
-        if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.poly[0] == "Pd":
+        if phenotype.eartype != "" or phenotype.tailtype != "" or genotype.poly[0] == "Pd":
             return False
         
         if phenotype.fade != "":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] != "dm" or phenotype.pinkdilute[0] == "dp":
+        if genotype.dilutemd[0] != "dm" or genotype.pinkdilute[0] == "dp":
             return False
-        if (('cm' in phenotype.pointgene or 'c' in phenotype.pointgene) and phenotype.pointgene[0] != "C"):
+        if (('cm' in genotype.pointgene or 'c' in genotype.pointgene) and genotype.pointgene[0] != "C"):
             return False
 
-        if phenotype.agouti[0] == "A" and (phenotype.bengsum > 3 or phenotype.soksum > 3):
+        if genotype.agouti[0] == "A" and (genotype.bengsum > 3 or genotype.soksum > 3):
             return False
-        if phenotype.agouti[0] == "Apb":
+        if genotype.agouti[0] == "Apb":
             return False
         
         return "Munchkin"
 
     @staticmethod
-    def NewZeal(phenotype):
+    def NewZeal(genotype, phenotype):
         if phenotype.length == "hairless" or phenotype.furtype != [""]:
             return False
-        if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.munch[0] != "mk":
+        if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] != "dm" or phenotype.pinkdilute[0] == "dp":
+        if genotype.dilutemd[0] != "dm" or genotype.pinkdilute[0] == "dp":
             return False
-        if (('cm' in phenotype.pointgene or 'c' in phenotype.pointgene) and phenotype.pointgene[0] != "C"):
-            return False
-
-        if phenotype.agouti[0] == "A" and (phenotype.bengsum > 3 or phenotype.soksum > 3):
-            return False
-        if phenotype.agouti[0] == "Apb":
+        if (('cm' in genotype.pointgene or 'c' in genotype.pointgene) and genotype.pointgene[0] != "C"):
             return False
 
-        if phenotype.eumelanin[0] != "B" or phenotype.pointgene[0] != "C":
+        if genotype.agouti[0] == "A" and (genotype.bengsum > 3 or genotype.soksum > 3):
+            return False
+        if genotype.agouti[0] == "Apb":
+            return False
+
+        if genotype.eumelanin[0] != "B" or genotype.pointgene[0] != "C":
             return False
         
-        if phenotype.poly[0] == "Pd":
-            return "Clippercat"
-        if phenotype.furLength[0] == "l":
+        if genotype.furLength[0] == "l":
             return "New Zealand Longhair"
         return "New Zealand Shorthair"
 
     @staticmethod
-    def NFC(phenotype):
+    def NFC(genotype, phenotype):
         if phenotype.length != "longhaired" or phenotype.furtype != [""]:
             return False
-        if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.munch[0] != "mk":
+        if phenotype.eartype != "" or phenotype.tailtype != "" or genotype.munch[0] != "mk":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] not in ["E", 'ea'] or phenotype.corin[0] != "N":
+        if genotype.ext[0] not in ["E", 'ea'] or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] != "dm" or phenotype.pinkdilute[0] == "dp":
+        if genotype.dilutemd[0] != "dm" or genotype.pinkdilute[0] == "dp":
             return False
-        if (('cm' in phenotype.pointgene or 'c' in phenotype.pointgene) and phenotype.pointgene[0] != "C"):
-            return False
-
-        if phenotype.agouti[0] == "A" and (phenotype.bengsum > 3 or phenotype.soksum > 3):
-            return False
-        if phenotype.agouti[0] == "Apb":
+        if (('cm' in genotype.pointgene or 'c' in genotype.pointgene) and genotype.pointgene[0] != "C"):
             return False
 
-        if phenotype.pointgene[0] != "C":
+        if genotype.agouti[0] == "A" and (genotype.bengsum > 3 or genotype.soksum > 3):
             return False
-        phenotype.longtype = "long"
+        if genotype.agouti[0] == "Apb":
+            return False
+
+        if genotype.pointgene[0] != "C":
+            return False
+        genotype.longtype = "long"
 
         return "Norwegian Forest cat"
 
     @staticmethod
-    def Ocicat(phenotype):
+    def Ocicat(genotype, phenotype):
         if phenotype.length != "shorthaired" or phenotype.furtype != [""]:
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] != "dm" or phenotype.pinkdilute[0] == "dp":
+        if genotype.dilutemd[0] != "dm" or genotype.pinkdilute[0] == "dp":
             return False
-        if (('cm' in phenotype.pointgene or 'c' in phenotype.pointgene) and phenotype.pointgene[0] != "C"):
-            return False
-
-        if phenotype.agouti[0] == "A" and (phenotype.bengsum > 3 or phenotype.soksum > 3):
-            return False
-        if phenotype.agouti[0] == "Apb":
+        if (('cm' in genotype.pointgene or 'c' in genotype.pointgene) and genotype.pointgene[0] != "C"):
             return False
 
-        if 'O' in phenotype.sexgene or phenotype.white[0] != 'w' or phenotype.pointgene[0] != "C":
+        if genotype.agouti[0] == "A" and (genotype.bengsum > 3 or genotype.soksum > 3):
             return False
-        if phenotype.agouti[0] == "A" and (phenotype.mack[0] == "Mc" and phenotype.spotsum < 6 or phenotype.ticked[0] == "Ta"):
+        if genotype.agouti[0] == "Apb":
+            return False
+
+        if 'O' in genotype.sexgene or genotype.white[0] != 'w' or genotype.pointgene[0] != "C":
+            return False
+        if genotype.agouti[0] == "A" and (genotype.mack[0] == "Mc" and genotype.spotsum < 6 or genotype.ticked[0] == "Ta"):
             return False
         
-        if phenotype.mack[0] == "mc":
+        if genotype.mack[0] == "mc":
             return "Jungala"
         return "Ocicat"
 
     @staticmethod
-    def Oriental(phenotype):
+    def Oriental(genotype, phenotype):
         if phenotype.length == "hairless" or phenotype.furtype != [""]:
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.pinkdilute[0] == "dp":
-            return False
-
-        if phenotype.agouti[0] == "A" and (phenotype.bengsum > 3 or phenotype.soksum > 3):
-            return False
-        if phenotype.agouti[0] == "Apb":
+        if genotype.pinkdilute[0] == "dp":
             return False
 
-        if (('cm' in phenotype.pointgene or 'c' in phenotype.pointgene or 'cb' in phenotype.pointgene) and phenotype.pointgene[0] != "C"):
+        if genotype.agouti[0] == "A" and (genotype.bengsum > 3 or genotype.soksum > 3):
+            return False
+        if genotype.agouti[0] == "Apb":
+            return False
+
+        if (('cm' in genotype.pointgene or 'c' in genotype.pointgene or 'cb' in genotype.pointgene) and genotype.pointgene[0] != "C"):
             return False
         
-        phenotype.longtype = "medium"
-        if phenotype.pointgene[0] == "cs" and phenotype.white[0] != 'W':
-            if phenotype.furLength[0] == "l":
+        genotype.longtype = "medium"
+        if genotype.pointgene[0] == "cs" and genotype.white[0] != 'W':
+            if genotype.furLength[0] == "l":
                 return "Balinese"
             return "Siamese"
-        if phenotype.furLength[0] == "l":
+        if genotype.furLength[0] == "l":
             return "Oriental Longhair"
         return "Oriental Shorthair"
 
     @staticmethod
-    def Persian(phenotype):
+    def Persian(genotype, phenotype):
         if phenotype.length == "hairless" or phenotype.furtype != [""]:
             return False
-        if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.munch[0] != "mk":
+        if phenotype.eartype != "" or phenotype.tailtype != "" or genotype.munch[0] != "mk":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.pinkdilute[0] == "dp":
+        if genotype.pinkdilute[0] == "dp":
             return False
-        if (('cm' in phenotype.pointgene or 'c' in phenotype.pointgene or 'cb' in phenotype.pointgene) and phenotype.pointgene[0] != "C"):
-            return False
-
-        if phenotype.agouti[0] == "A" and (phenotype.bengsum > 3 or phenotype.soksum > 3 or phenotype.ticked[0] == "Ta"):
-            return False
-        if phenotype.agouti[0] == "Apb":
+        if (('cm' in genotype.pointgene or 'c' in genotype.pointgene or 'cb' in genotype.pointgene) and genotype.pointgene[0] != "C"):
             return False
 
-        phenotype.longtype = "long"
+        if genotype.agouti[0] == "A" and (genotype.bengsum > 3 or genotype.soksum > 3 or genotype.ticked[0] == "Ta"):
+            return False
+        if genotype.agouti[0] == "Apb":
+            return False
 
-        if phenotype.furLength[0] == "l":
-            if phenotype.pointgene[0] == "cs":
-                if phenotype.poly[0] == "Pd":
+        genotype.longtype = "long"
+
+        if genotype.furLength[0] == "l":
+            if genotype.pointgene[0] == "cs":
+                if genotype.poly[0] == "Pd":
                     return "Nepalayan"
                 return "Himalayan"
-            if phenotype.poly[0] == "Pd":
+            if genotype.poly[0] == "Pd":
                 return False
             return "Persian"
         return "Exotic"
 
     @staticmethod
-    def Pixiebob(phenotype):
+    def Pixiebob(genotype, phenotype):
         if phenotype.length == "hairless" or phenotype.furtype != [""]:
             return False
-        if phenotype.eartype != "" or (phenotype.tailtype != "" and phenotype.manx[0] != "Ab") or phenotype.munch[0] != "mk":
+        if phenotype.eartype != "" or (phenotype.tailtype != "" and genotype.manx[0] != "Ab") or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] != "dm" or phenotype.pinkdilute[0] == "dp":
+        if genotype.dilutemd[0] != "dm" or genotype.pinkdilute[0] == "dp":
             return False
-        if phenotype.agouti[0] != "A" or (phenotype.bengsum > 3 or phenotype.soksum > 3):
+        if genotype.agouti[0] != "A" or (genotype.bengsum > 3 or genotype.soksum > 3):
             return False
 
-        if phenotype.eumelanin[0] != "B" or 'O' in phenotype.sexgene or phenotype.dilute[0] != 'D' or phenotype.white[0] != 'w':
+        if genotype.eumelanin[0] != "B" or 'O' in genotype.sexgene or genotype.dilute[0] != 'D' or genotype.white[0] != 'w':
             return False
-        if phenotype.silver[0] == 'I' or phenotype.pointgene[0] != "C" or phenotype.ticked[0] == "Ta" or phenotype.wbsum > 11:
+        if genotype.silver[0] == 'I' or genotype.pointgene[0] != "C" or genotype.ticked[0] == "Ta" or genotype.wbsum > 11:
             return False
         
-        if phenotype.mack[0] == "mc" or phenotype.spotsum < 6:
+        if genotype.mack[0] == "mc" or genotype.spotsum < 6:
             return False
         
         return "Pixie-Bob"
 
     @staticmethod
-    def Ragamuffin(phenotype):
+    def Ragamuffin(genotype, phenotype):
         if phenotype.length != "longhaired" or phenotype.furtype != [""]:
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] != "dm" or phenotype.pinkdilute[0] == "dp":
+        if genotype.dilutemd[0] != "dm" or genotype.pinkdilute[0] == "dp":
             return False
-        if (('cm' in phenotype.pointgene or 'c' in phenotype.pointgene) and phenotype.pointgene[0] != "C"):
+        if (('cm' in genotype.pointgene or 'c' in genotype.pointgene) and genotype.pointgene[0] != "C"):
             return False
 
-        if phenotype.agouti[0] == "A" and (phenotype.bengsum > 3 or phenotype.soksum > 3):
+        if genotype.agouti[0] == "A" and (genotype.bengsum > 3 or genotype.soksum > 3):
             return False
-        if phenotype.agouti[0] == "Apb":
+        if genotype.agouti[0] == "Apb":
             return False
-        phenotype.longtype = "long"
+        genotype.longtype = "long"
 
         return "Ragamuffin"
 
     @staticmethod
-    def Ragdoll(phenotype):
+    def Ragdoll(genotype, phenotype):
         if phenotype.length != "longhaired" or phenotype.furtype != [""]:
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.pinkdilute[0] == "dp":
-            return False
-
-        if phenotype.agouti[0] == "A" and (phenotype.bengsum > 3 or phenotype.soksum > 3):
-            return False
-        if phenotype.agouti[0] == "Apb":
-            return False
-        phenotype.longtype = "long"
-
-        if phenotype.white[0] not in ["ws", "w"] or phenotype.white[1] not in ["ws", "w"]:
+        if genotype.pinkdilute[0] == "dp":
             return False
 
-        if phenotype.pointgene[0] != "cs":
-            return "Cherubim"
+        if genotype.agouti[0] == "A" and (genotype.bengsum > 3 or genotype.soksum > 3):
+            return False
+        if genotype.agouti[0] == "Apb":
+            return False
+        genotype.longtype = "long"
+
+        if genotype.pointgene[0] != "cs" or genotype.white[0] not in ["ws", "w"] or genotype.white[1] not in ["ws", "w"]:
+            return False
 
         return "Ragdoll"
 
     @staticmethod
-    def Russian(phenotype):
+    def Russian(genotype, phenotype):
         if phenotype.length == "hairless" or (phenotype.furtype != [""] and phenotype.furtype != [" satin", " fur"]):
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] != "dm" or phenotype.pinkdilute[0] == "dp":
+        if genotype.dilutemd[0] != "dm" or genotype.pinkdilute[0] == "dp":
             return False
-        if phenotype.agouti[0] != "a" and phenotype.white[0] != "W":
+        if genotype.agouti[0] != "a" and genotype.white[0] != "W":
             return False
 
-        if phenotype.eumelanin[0] != "B" or 'O' in phenotype.sexgene or phenotype.white[0] not in ["W", "w"]:
+        if genotype.eumelanin[0] != "B" or 'O' in genotype.sexgene or genotype.white[0] not in ["W", "w"]:
             return False
-        if phenotype.silver[0] == 'I' or phenotype.pointgene[0] != "C":
+        if genotype.silver[0] == 'I' or genotype.pointgene[0] != "C":
             return False
-        if phenotype.furLength[0] == "l" and (phenotype.dilute[0] != "d" or phenotype.white[0] != "w"):
+        if genotype.furLength[0] == "l" and (genotype.dilute[0] != "d" or genotype.white[0] != "w"):
             return False
         
-        if phenotype.furLength[0] == "L":
-            if phenotype.white[0] == "W":
+        if genotype.furLength[0] == "L":
+            if genotype.white[0] == "W":
                 return "Russian White"
-            if phenotype.dilute[0] == "D":
+            if genotype.dilute[0] == "D":
                 return "Russian Black"
             return "Russian Blue"
         return "Nebelung"
     
     @staticmethod
-    def Selkirk(phenotype):
-        if phenotype.length == "hairless" or ((phenotype.furtype != [""] and phenotype.furtype != ["rexed", " fur"]) or (phenotype.furtype == ["rexed", " fur"] and phenotype.sedesp[0] != "Se")):
+    def Selkirk(genotype, phenotype):
+        if phenotype.length == "hairless" or ((phenotype.furtype != [""] and phenotype.furtype != ["rexed", " fur"]) or (phenotype.furtype == ["rexed", " fur"] and genotype.sedesp[0] != "Se")):
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.pinkdilute[0] == "dp":
+        if genotype.pinkdilute[0] == "dp":
             return False
-        if phenotype.agouti[0] == "A" and (phenotype.bengsum > 3 or phenotype.soksum > 3):
+        if genotype.agouti[0] == "A" and (genotype.bengsum > 3 or genotype.soksum > 3):
             return False
-        if phenotype.agouti[0] == "Apb":
+        if genotype.agouti[0] == "Apb":
             return False
-        if (('cm' in phenotype.pointgene or 'c' in phenotype.pointgene) and phenotype.pointgene[0] != "C"):
+        if (('cm' in genotype.pointgene or 'c' in genotype.pointgene) and genotype.pointgene[0] != "C"):
             return False
 
-        if phenotype.sedesp[0] != "Se":
+        if genotype.sedesp[0] != "Se":
             return "Selkirk Rex variant"
         return "Selkirk Rex"
 
     @staticmethod
-    def Siberian(phenotype):
+    def Siberian(genotype, phenotype):
         if phenotype.length != "longhaired" or phenotype.furtype != [""]:
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] == "fg":
+        if genotype.ext[0] != "E" or genotype.corin[0] == "fg":
             return False
-        if phenotype.dilutemd[0] != "dm" or phenotype.pinkdilute[0] == "dp":
+        if genotype.dilutemd[0] != "dm" or genotype.pinkdilute[0] == "dp":
             return False
-        if (('cm' in phenotype.pointgene or 'c' in phenotype.pointgene or 'cb' in phenotype.pointgene) and phenotype.pointgene[0] != "C"):
+        if (('cm' in genotype.pointgene or 'c' in genotype.pointgene or 'cb' in genotype.pointgene) and genotype.pointgene[0] != "C"):
             return False
 
-        if phenotype.agouti[0] == "A" and (phenotype.bengsum > 3 or phenotype.soksum > 3):
+        if genotype.agouti[0] == "A" and (genotype.bengsum > 3 or genotype.soksum > 3):
             return False
-        if phenotype.agouti[0] == "Apb":
+        if genotype.agouti[0] == "Apb":
             return False
-        phenotype.longtype = "long"
+        genotype.longtype = "long"
 
-        if phenotype.pointgene[0] == "cs":
+        if genotype.pointgene[0] == "cs":
             return "Neva Masquerade"
         return "Siberian"
 
     @staticmethod
-    def Singapura(phenotype):
+    def Singapura(genotype, phenotype):
         if phenotype.length != "shorthaired" or phenotype.furtype != [""]:
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] != "dm" or phenotype.pinkdilute[0] == "dp":
+        if genotype.dilutemd[0] != "dm" or genotype.pinkdilute[0] == "dp":
             return False
-        if phenotype.agouti[0] != "A":
+        if genotype.agouti[0] != "A":
             return False
 
-        if phenotype.eumelanin[0] != "B" or 'O' in phenotype.sexgene or phenotype.dilute[0] != 'D' or phenotype.white[0] != 'w':
+        if genotype.eumelanin[0] != "B" or 'O' in genotype.sexgene or genotype.dilute[0] != 'D' or genotype.white[0] != 'w':
             return False
-        if phenotype.silver[0] == 'I' or phenotype.pointgene != ["cb", "cb"] or phenotype.ticked[0] != "Ta" or phenotype.wbsum > 11:
+        if genotype.silver[0] == 'I' or genotype.pointgene != ["cb", "cb"] or genotype.ticked[0] != "Ta" or genotype.wbsum > 11:
             return False
         
         return "Singapura"
 
     @staticmethod
-    def Snowshoe(phenotype):
+    def Snowshoe(genotype, phenotype):
         if phenotype.length != "shorthaired" or phenotype.furtype != [""]:
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.pinkdilute[0] == "dp":
-            return False
-
-        if phenotype.agouti[0] == "A" and (phenotype.bengsum > 3 or phenotype.soksum > 3):
-            return False
-        if phenotype.agouti[0] == "Apb":
+        if genotype.pinkdilute[0] == "dp":
             return False
 
-        if phenotype.pointgene[0] != "cs" or phenotype.white[0] not in ["ws", "w"] or phenotype.white[1] not in ["ws", "w"] or 'ws' not in phenotype.white:
+        if genotype.agouti[0] == "A" and (genotype.bengsum > 3 or genotype.soksum > 3):
+            return False
+        if genotype.agouti[0] == "Apb":
+            return False
+
+        if genotype.pointgene[0] != "cs" or genotype.white[0] not in ["ws", "w"] or genotype.white[1] not in ["ws", "w"] or 'ws' not in genotype.white:
             return False
 
         return "Snowshoe"
 
     @staticmethod
-    def Sokoke(phenotype):
+    def Sokoke(genotype, phenotype):
         if phenotype.length != "shorthaired" or phenotype.furtype != [""]:
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] != "dm" or phenotype.pinkdilute[0] == "dp":
+        if genotype.dilutemd[0] != "dm" or genotype.pinkdilute[0] == "dp":
             return False
-        if phenotype.agouti[0] != "A":
+        if genotype.agouti[0] != "A":
             return False
 
-        if phenotype.eumelanin[0] != "B" or 'O' in phenotype.sexgene or phenotype.dilute[0] != 'D' or phenotype.white[0] != 'w':
+        if genotype.eumelanin[0] != "B" or 'O' in genotype.sexgene or genotype.dilute[0] != 'D' or genotype.white[0] != 'w':
             return False
-        if phenotype.silver[0] == 'I' or phenotype.pointgene[0] not in ["C", "cs"] or phenotype.ticked[0] == "Ta" or phenotype.wbsum > 11:
+        if genotype.silver[0] == 'I' or genotype.pointgene[0] not in ["C", "cs"] or genotype.ticked[0] == "Ta" or genotype.wbsum > 11:
             return False
-        if phenotype.soksum < 6 or phenotype.mack[0] != "mc" or phenotype.bengsum > 3:
+        if genotype.soksum < 6 or genotype.mack[0] != "mc" or genotype.bengsum > 3:
             return False
         
         return "Sokoke"
 
     @staticmethod
-    def Sphynx(phenotype):
-        if phenotype.sedesp != ["hr", "hr"]:
+    def Sphynx(genotype, phenotype):
+        if genotype.sedesp != ["hr", "hr"]:
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] == "Dm" or phenotype.pinkdilute[0] == "dp":
+        if genotype.dilutemd[0] == "Dm" or genotype.pinkdilute[0] == "dp":
             return False
-        if phenotype.agouti[0] == "A" and (phenotype.bengsum > 3 or phenotype.soksum > 3):
+        if genotype.agouti[0] == "A" and (genotype.bengsum > 3 or genotype.soksum > 3):
             return False
-        if phenotype.agouti[0] == "Apb":
+        if genotype.agouti[0] == "Apb":
             return False
-        if (('cm' in phenotype.pointgene or 'c' in phenotype.pointgene) and phenotype.pointgene[0] != "C"):
+        if (('cm' in genotype.pointgene or 'c' in genotype.pointgene) and genotype.pointgene[0] != "C"):
             return False
     
         return "Sphynx"
 
     @staticmethod
-    def Tenn(phenotype):
-        if phenotype.length == "hairless" or (phenotype.furtype != ["rexed", " satin", " fur"] or phenotype.tenn[0] != "tr"):
+    def Tenn(genotype, phenotype):
+        if phenotype.length == "hairless" or (phenotype.furtype != ["rexed", " satin", " fur"] or genotype.tenn[0] != "tr"):
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] == "Dm" or phenotype.pinkdilute[0] == "dp":
+        if genotype.dilutemd[0] == "Dm" or genotype.pinkdilute[0] == "dp":
             return False
-        if phenotype.agouti[0] == "A" and (phenotype.bengsum > 3 or phenotype.soksum > 3):
+        if genotype.agouti[0] == "A" and (genotype.bengsum > 3 or genotype.soksum > 3):
             return False
-        if phenotype.agouti[0] == "Apb":
+        if genotype.agouti[0] == "Apb":
             return False
-        if (('cm' in phenotype.pointgene or 'c' in phenotype.pointgene) and phenotype.pointgene[0] != "C"):
+        if (('cm' in genotype.pointgene or 'c' in genotype.pointgene) and genotype.pointgene[0] != "C"):
             return False
     
         return "Tennessee Rex"
 
     @staticmethod
-    def Thai(phenotype):
+    def Thai(genotype, phenotype):
         if phenotype.length != "shorthaired" or phenotype.furtype != [""]:
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] == "Dm" or phenotype.pinkdilute[0] == "dp":
-            return False
-
-        if phenotype.agouti[0] == "A" and (phenotype.bengsum > 3 or phenotype.soksum > 3):
-            return False
-        if phenotype.agouti[0] == "Apb":
+        if genotype.dilutemd[0] == "Dm" or genotype.pinkdilute[0] == "dp":
             return False
 
-        if phenotype.pointgene[0] != "cs" or phenotype.white[0] != "w":
+        if genotype.agouti[0] == "A" and (genotype.bengsum > 3 or genotype.soksum > 3):
+            return False
+        if genotype.agouti[0] == "Apb":
+            return False
+
+        if genotype.pointgene[0] != "cs" or genotype.white[0] != "w":
             return False
 
         return "Thai"
 
     @staticmethod
-    def Tonk(phenotype):
+    def Tonk(genotype, phenotype):
         if phenotype.length != "shorthaired" or phenotype.furtype != [""]:
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.pinkdilute[0] == "dp":
-            return False
-
-        if phenotype.agouti[0] == "A" and (phenotype.bengsum > 3 or phenotype.soksum > 3 or phenotype.wbsum > 11):
-            return False
-        if phenotype.agouti[0] == "Apb":
+        if genotype.pinkdilute[0] == "dp":
             return False
 
-        if phenotype.pointgene[0] not in ["cb", "cs"] or phenotype.pointgene[1] not in ["cb", "cs"] or phenotype.white[0] != "w":
+        if genotype.agouti[0] == "A" and (genotype.bengsum > 3 or genotype.soksum > 3 or genotype.wbsum > 11):
+            return False
+        if genotype.agouti[0] == "Apb":
+            return False
+
+        if genotype.pointgene[0] not in ["cb", "cs"] or genotype.pointgene[1] not in ["cb", "cs"] or genotype.white[0] != "w":
             return False
 
         return "Tonkinese"
 
     @staticmethod
-    def Toybob(phenotype):
+    def Toybob(genotype, phenotype):
         if phenotype.length == "hairless" or phenotype.furtype != [""]:
             return False
-        if phenotype.eartype != "" or (phenotype.tailtype.find("pom-pom") == -1 or phenotype.toybob[0] != "Tb") or phenotype.pawtype != "":
+        if phenotype.eartype != "" or (phenotype.tailtype.find("pom-pom") == -1 or genotype.toybob[0] != "Tb") or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] != "dm" or phenotype.pinkdilute[0] == "dp":
+        if genotype.dilutemd[0] != "dm" or genotype.pinkdilute[0] == "dp":
             return False
-        if (('cm' in phenotype.pointgene or 'c' in phenotype.pointgene) and phenotype.pointgene[0] != "C"):
+        if (('cm' in genotype.pointgene or 'c' in genotype.pointgene) and genotype.pointgene[0] != "C"):
             return False
 
-        if phenotype.agouti[0] == "A" and (phenotype.bengsum > 3 or phenotype.soksum > 3):
+        if genotype.agouti[0] == "A" and (genotype.bengsum > 3 or genotype.soksum > 3):
             return False
-        if phenotype.agouti[0] == "Apb":
+        if genotype.agouti[0] == "Apb":
             return False
         
         return "Toybob"
 
     @staticmethod
-    def Toyger(phenotype):
+    def Toyger(genotype, phenotype):
         if phenotype.length != "shorthaired" or phenotype.furtype != [""]:
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] != "dm" or phenotype.pinkdilute[0] == "dp":
+        if genotype.dilutemd[0] != "dm" or genotype.pinkdilute[0] == "dp":
             return False
-        if phenotype.agouti[0] != "A":
+        if genotype.agouti[0] != "A":
             return False
 
-        if phenotype.eumelanin[0] != "B" or 'O' in phenotype.sexgene or phenotype.dilute[0] != 'D' or phenotype.white[0] != 'w':
+        if genotype.eumelanin[0] != "B" or 'O' in genotype.sexgene or genotype.dilute[0] != 'D' or genotype.white[0] != 'w':
             return False
-        if phenotype.silver[0] == 'I' or phenotype.pointgene[0] != "C" or phenotype.ticked[0] == "Ta" or phenotype.wbsum > 11:
+        if genotype.silver[0] == 'I' or genotype.pointgene[0] != "C" or genotype.ticked[0] == "Ta" or genotype.wbsum > 11:
             return False
-        if phenotype.bengsum < 6 or phenotype.mack[0] != "Mc" or phenotype.soksum > 3:
+        if genotype.bengsum < 6 or genotype.mack[0] != "Mc" or genotype.soksum > 3:
             return False
         
         return "Toyger"
 
     @staticmethod
-    def Turkish(phenotype):
+    def Turkish(genotype, phenotype):
         if phenotype.length == "hairless" or phenotype.furtype != [""]:
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] != "dm" or phenotype.pinkdilute[0] == "dp":
+        if genotype.dilutemd[0] != "dm" or genotype.pinkdilute[0] == "dp":
             return False
-        if (('cm' in phenotype.pointgene or 'c' in phenotype.pointgene) and phenotype.pointgene[0] != "C"):
-            return False
-
-        if phenotype.agouti[0] == "A" and (phenotype.bengsum > 3 or phenotype.soksum > 3):
-            return False
-        if phenotype.agouti[0] == "Apb":
+        if (('cm' in genotype.pointgene or 'c' in genotype.pointgene) and genotype.pointgene[0] != "C"):
             return False
 
-        if phenotype.eumelanin[0] != "B" or phenotype.pointgene[0] != "C":
+        if genotype.agouti[0] == "A" and (genotype.bengsum > 3 or genotype.soksum > 3):
+            return False
+        if genotype.agouti[0] == "Apb":
+            return False
+
+        if genotype.eumelanin[0] != "B" or genotype.pointgene[0] != "C":
             return False
         
-        if phenotype.furLength[0] == "L":
+        if genotype.furLength[0] == "L":
             return "Anatoli"
-        if phenotype.white_pattern == ["full white"]:
+        if genotype.white_pattern == ["full white"]:
             return "Turkish Vankedisi"
-        if phenotype.white == ["ws", "ws"] and phenotype.whitegrade == 4:
+        if genotype.white == ["ws", "ws"] and genotype.whitegrade == 4:
             return "Turkish Van"
         return "Turkish Angora"
 
     @staticmethod
-    def Ural(phenotype):
-        if phenotype.length == "hairless" or (phenotype.furtype != ["rexed", " fur"] or phenotype.urals[0] != "ru"):
+    def Ural(genotype, phenotype):
+        if phenotype.length == "hairless" or (phenotype.furtype != ["rexed", " fur"] or genotype.urals[0] != "ru"):
             return False
         if phenotype.eartype != "" or phenotype.tailtype != "" or phenotype.pawtype != "":
             return False
         
-        if phenotype.fade != "" or phenotype.karp[0] == "K":
+        if phenotype.fade != "" or genotype.karp[0] == "K":
             return False
-        if phenotype.ext[0] != "E" or phenotype.corin[0] != "N":
+        if genotype.ext[0] != "E" or genotype.corin[0] != "N":
             return False
-        if phenotype.dilutemd[0] != "dm" or phenotype.pinkdilute[0] == "dp":
+        if genotype.dilutemd[0] != "dm" or genotype.pinkdilute[0] == "dp":
             return False
-        if phenotype.agouti[0] == "A" and (phenotype.bengsum > 3 or phenotype.soksum > 3 or phenotype.ticked[0] == "Ta"):
+        if genotype.agouti[0] == "A" and (genotype.bengsum > 3 or genotype.soksum > 3 or genotype.ticked[0] == "Ta"):
             return False
-        if phenotype.agouti[0] == "Apb":
+        if genotype.agouti[0] == "Apb":
             return False
-        if (('cm' in phenotype.pointgene or 'c' in phenotype.pointgene or 'cb' in phenotype.pointgene) and phenotype.pointgene[0] != "C"):
+        if (('cm' in genotype.pointgene or 'c' in genotype.pointgene or 'cb' in genotype.pointgene) and genotype.pointgene[0] != "C"):
             return False
     
-        if phenotype.eumelanin[0] != "B":
+        if genotype.eumelanin[0] != "B":
             return False
     
         return "Ural Rex"
 
 
-def find_my_breed(phenotype):
+def find_my_breed(genotype, phenotype, config):
     purebred_range = 75
     mix_range = 12.5
 
     hybrids = {
-        "Bambino" : phenotype.breeds.get("Munchkin", 0) + phenotype.breeds.get("Sphynx", 0), 
-        "Cheetoh" : phenotype.breeds.get("Ocicat", 0) + phenotype.breeds.get("Bengal", 0), 
-        "Elf" : phenotype.breeds.get("American Curl", 0) + phenotype.breeds.get("Sphynx", 0), 
-        "Foldex" : phenotype.breeds.get("Persian/Exotic", 0) + phenotype.breeds.get("British", 0), 
-        "Gaelic Fold" : phenotype.breeds.get("Munchkin", 0) + phenotype.breeds.get("Persian/Exotic", 0) + phenotype.breeds.get("British", 0), 
-        "Kinkalow" : phenotype.breeds.get("American Curl", 0) + phenotype.breeds.get("Munchkin", 0), 
-        "Lambkin" : phenotype.breeds.get("Selkirk Rex", 0) + phenotype.breeds.get("Munchkin", 0), 
-        "Napoleon" : phenotype.breeds.get("Munchkin", 0) + phenotype.breeds.get("Persian/Exotic", 0),
-        "Peterbald" : phenotype.breeds.get("Oriental/Siamese", 0) + phenotype.breeds.get("Donskoy", 0), 
-        "Serengeti" : phenotype.breeds.get("Oriental/Siamese", 0) + phenotype.breeds.get("Bengal", 0), 
-        "Skookum" : phenotype.breeds.get("LaPerm", 0) + phenotype.breeds.get("Munchkin", 0)
-    }
-    hybrid_info = {
-        "Bambino" : ["Munchkin", "Sphynx"], 
-        "Cheetoh" : ["Ocicat", "Bengal"], 
-        "Elf" : ["American Curl", "Sphynx"], 
-        "Foldex" : ["Persian/Exotic", "British"], 
-        "Gaelic Fold" : ["Munchkin", "Persian/Exotic", "British"], 
-        "Kinkalow" : ["American Curl", "Munchkin"], 
-        "Lambkin" : ["Selkirk Rex", "Munchkin"], 
-        "Napoleon" : ["Munchkin", "Persian/Exotic"],
-        "Peterbald" : ["Oriental/Siamese", "Donskoy"], 
-        "Serengeti" : ["Oriental/Siamese", "Bengal"], 
-        "Skookum" : ["LaPerm", "Munchkin"]
+        "Bambino" : genotype.breeds.get("Munchkin", 0) + genotype.breeds.get("Sphynx", 0), 
+        "Cheetoh" : genotype.breeds.get("Ocicat", 0) + genotype.breeds.get("Bengal", 0), 
+        "Elf" : genotype.breeds.get("American Curl", 0) + genotype.breeds.get("Sphynx", 0), 
+        "Foldex" : genotype.breeds.get("Persian/Exotic", 0) + genotype.breeds.get("British", 0), 
+        "Gaelic Fold" : genotype.breeds.get("Munchkin", 0) + genotype.breeds.get("Persian/Exotic", 0) + genotype.breeds.get("British", 0), 
+        "Kinkalow" : genotype.breeds.get("American Curl", 0) + genotype.breeds.get("Munchkin", 0), 
+        "Lambkin" : genotype.breeds.get("Selkirk Rex", 0) + genotype.breeds.get("Munchkin", 0), 
+        "Napoleon" : genotype.breeds.get("Munchkin", 0) + genotype.breeds.get("Persian/Exotic", 0),
+        "Peterbald" : genotype.breeds.get("Oriental/Siamese", 0) + genotype.breeds.get("Donskoy", 0), 
+        "Serengeti" : genotype.breeds.get("Oriental/Siamese", 0) + genotype.breeds.get("Bengal", 0), 
+        "Skookum" : genotype.breeds.get("LaPerm", 0) + genotype.breeds.get("Munchkin", 0)
     }
 
-    if not phenotype.breeds.get("Munchkin", False) or not phenotype.breeds.get("Sphynx", False):
+    if not genotype.breeds.get("Munchkin", False) or not genotype.breeds.get("Sphynx", False):
         hybrids["Bambino"] = 0
-    if not phenotype.breeds.get("Ocicat", False) or not phenotype.breeds.get("Bengal", False):
+    if not genotype.breeds.get("Ocicat", False) or not genotype.breeds.get("Bengal", False):
         hybrids["Cheetoh"] = 0
-    if not phenotype.breeds.get("Sphynx", False):
+    if not genotype.breeds.get("Sphynx", False):
         hybrids["Elf"] = 0
-    if not phenotype.breeds.get("Persian/Exotic", False) or not phenotype.breeds.get("British", False) or phenotype.breeds.get("Munchkin", False):
+    if not genotype.breeds.get("Persian/Exotic", False) or not genotype.breeds.get("British", False) or genotype.breeds.get("Munchkin", False):
         hybrids["Foldex"] = 0
-    if not phenotype.breeds.get("Munchkin", False) or not phenotype.breeds.get("Persian/Exotic", False) or not phenotype.breeds.get("British", False):
+    if not genotype.breeds.get("Munchkin", False) or not genotype.breeds.get("Persian/Exotic", False) or not genotype.breeds.get("British", False):
         hybrids["Gaelic Fold"] = 0
-    if not phenotype.breeds.get("American Curl", False) or not phenotype.breeds.get("Munchkin", False):
+    if not genotype.breeds.get("American Curl", False) or not genotype.breeds.get("Munchkin", False):
         hybrids["Kinkalow"] = 0
-    if not phenotype.breeds.get("Selkirk Rex", False) or not phenotype.breeds.get("Munchkin", False):
+    if not genotype.breeds.get("Selkirk Rex", False) or not genotype.breeds.get("Munchkin", False):
         hybrids["Lambkin"] = 0
-    if not phenotype.breeds.get("Persian/Exotic", False) or not phenotype.breeds.get("Munchkin", False) or phenotype.breeds.get("British", False):
+    if not genotype.breeds.get("Persian/Exotic", False) or not genotype.breeds.get("Munchkin", False) or genotype.breeds.get("British", False):
         hybrids["Napoleon"] = 0
-    if not phenotype.breeds.get("Oriental/Siamese", False) or not phenotype.breeds.get("Donskoy", False):
+    if not genotype.breeds.get("Oriental/Siamese", False) or not genotype.breeds.get("Donskoy", False):
         hybrids["Peterbald"] = 0
-    if not phenotype.breeds.get("Oriental/Siamese", False) or not phenotype.breeds.get("Bengal", False):
+    if not genotype.breeds.get("Oriental/Siamese", False) or not genotype.breeds.get("Bengal", False):
         hybrids["Serengeti"] = 0
-    if not phenotype.breeds.get("LaPerm", False) or not phenotype.breeds.get("Munchkin", False):
+    if not genotype.breeds.get("LaPerm", False) or not genotype.breeds.get("Munchkin", False):
         hybrids["Skookum"] = 0
 
     sorted_hybrids = dict(sorted(hybrids.items(), key=lambda item: item[1], reverse=True))
-    sorted_breeds = dict(sorted(phenotype.breeds.items(), key=lambda item: item[1], reverse=True))
+    sorted_breeds = dict(sorted(genotype.breeds.items(), key=lambda item: item[1], reverse=True))
     
     for breed in sorted_hybrids:
         if sorted_hybrids[breed] < purebred_range:
             break
-        if breed == "Bambino" and phenotype.sedesp[0] == "hr" and phenotype.breeds.get("Munchkin", 0) and phenotype.breeds.get("Sphynx", 0):
+        if breed == "Bambino" and genotype.sedesp[0] == "hr" and genotype.breeds.get("Munchkin", 0) and genotype.breeds.get("Sphynx", 0):
             return "Bambino"
-        elif breed == "Cheetoh" and Breed_checker.Cheetoh(phenotype) and phenotype.breeds.get("Ocicat", 0) and phenotype.breeds.get("Bengal", 0):
+        elif breed == "Cheetoh" and Breed_checker.Cheetoh(genotype, phenotype) and genotype.breeds.get("Ocicat", 0) and genotype.breeds.get("Bengal", 0):
             return "Cheetoh"
-        elif breed == "Elf" and phenotype.sedesp[0] == "hr" and phenotype.curl[0] == "Cu" and phenotype.breeds.get("Sphynx", 0):
+        elif breed == "Elf" and genotype.sedesp[0] == "hr" and genotype.curl[0] == "Cu" and genotype.breeds.get("Sphynx", 0):
             return "Elf"
-        elif breed == "Foldex" and phenotype.length != "hairless" and phenotype.lykoi[0] == "Ly" and phenotype.eumelanin[0] != "bl" and phenotype.breeds.get("Persian/Exotic", 0) and phenotype.breeds.get("British", 0):
+        elif breed == "Foldex" and phenotype.length != "hairless" and genotype.lykoi[0] == "Ly" and genotype.eumelanin[0] != "bl" and genotype.breeds.get("Persian/Exotic", 0) and genotype.breeds.get("British", 0):
             return "Foldex"
-        elif breed == "Gaelic Fold" and phenotype.length != "hairless" and phenotype.lykoi[0] == "Ly" and phenotype.breeds.get("Munchkin", 0) and phenotype.breeds.get("Persian/Exotic", 0) and phenotype.breeds.get("British", 0):
+        elif breed == "Gaelic Fold" and phenotype.length != "hairless" and genotype.lykoi[0] == "Ly" and genotype.breeds.get("Munchkin", 0) and genotype.breeds.get("Persian/Exotic", 0) and genotype.breeds.get("British", 0):
             return "Gaelic Fold"
-        elif breed == "Kinkalow" and phenotype.length != "hairless" and phenotype.lykoi[0] == "Ly" and phenotype.curl[0] == "Cu" and phenotype.breeds.get("American Curl", 0) and phenotype.breeds.get("Munchkin", 0):
+        elif breed == "Kinkalow" and phenotype.length != "hairless" and genotype.lykoi[0] == "Ly" and genotype.curl[0] == "Cu" and genotype.breeds.get("American Curl", 0) and genotype.breeds.get("Munchkin", 0):
             return "Kinkalow"
-        elif breed == "Lambkin" and phenotype.length != "hairless" and phenotype.lykoi[0] == "Ly" and phenotype.sedesp[0] == "Se" and phenotype.breeds.get("Selkirk Rex", 0) and phenotype.breeds.get("Munchkin", 0):
+        elif breed == "Lambkin" and phenotype.length != "hairless" and genotype.lykoi[0] == "Ly" and genotype.sedesp[0] == "Se" and genotype.breeds.get("Selkirk Rex", 0) and genotype.breeds.get("Munchkin", 0):
             return "Lambkin"
-        elif breed == "Napoleon" and phenotype.length != "hairless" and phenotype.lykoi[0] == "Ly" and phenotype.breeds.get("Persian/Exotic", 0) and phenotype.breeds.get("Munchkin", 0):
+        elif breed == "Napoleon" and phenotype.length != "hairless" and genotype.lykoi[0] == "Ly" and genotype.breeds.get("Persian/Exotic", 0) and genotype.breeds.get("Munchkin", 0):
             return "Napoleon"
-        elif breed == "Peterbald" and phenotype.breeds.get("Oriental/Siamese", 0) and phenotype.breeds.get("Donskoy", 0):
+        elif breed == "Peterbald" and genotype.breeds.get("Oriental/Siamese", 0) and genotype.breeds.get("Donskoy", 0):
             return "Peterbald"
-        elif breed == "Serengeti" and Breed_checker.Serengeti(phenotype) and phenotype.breeds.get("Oriental/Siamese", 0) and phenotype.breeds.get("Bengal", 0):
+        elif breed == "Serengeti" and Breed_checker.Serengeti(genotype, phenotype) and genotype.breeds.get("Oriental/Siamese", 0) and genotype.breeds.get("Bengal", 0):
             return "Serengeti"
-        elif breed == "Skookum" and phenotype.length != "hairless" and phenotype.lykoi[0] == "Ly" and phenotype.laperm[0] == "Lp" and phenotype.breeds.get("LaPerm", 0) and phenotype.breeds.get("Munchkin", 0):
+        elif breed == "Skookum" and phenotype.length != "hairless" and genotype.lykoi[0] == "Ly" and genotype.laperm[0] == "Lp" and genotype.breeds.get("LaPerm", 0) and genotype.breeds.get("Munchkin", 0):
             return "Skookum"
 
     for breed in sorted_breeds:
         if sorted_breeds[breed] < purebred_range:
             break
-        if breed_functions["checker"][breed](phenotype):
-            return breed_functions["checker"][breed](phenotype)
+        if breed_functions["checker"][breed](genotype, phenotype):
+            return breed_functions["checker"][breed](genotype, phenotype)
 
     sorted_breeds.update(sorted_hybrids)
     sorted_breeds = dict(sorted(sorted_breeds.items(), key=lambda item: item[1], reverse=True))
 
     top = 0
     breed_mix = ""
-    edited_sorted_breeds = sorted_breeds.copy()
     for breed in sorted_breeds:
-        if edited_sorted_breeds.get(breed) is None:
-            continue
         if sorted_breeds[breed] < mix_range:
             if breed_mix == "":
                 break
@@ -4687,14 +4699,6 @@ def find_my_breed(phenotype):
             breed_mix = breed
         elif sorted_breeds[breed] == top:
             breed_mix += ", " + breed
-
-        if breed in hybrid_info:
-            for part in hybrid_info[breed]:
-                if edited_sorted_breeds.get(part):
-                    del edited_sorted_breeds[part]
-                if part in breed_mix:
-                    breed_mix = breed_mix.replace(", " + breed, "")
-
             
 
     return ""
@@ -4718,6 +4722,7 @@ breed_functions = {
         "Chartreux" : Breed_generator.Chartreux,
         "Korat" : Breed_generator.Chartreux,
         "Chausie" : Breed_generator.Chausie,
+        "Clippercat" : Breed_generator.Clippercat,
         "Cornish Rex" : Breed_generator.Cornish,
         "German Rex" : Breed_generator.Cornish,
         "Devon Rex" : Breed_generator.Devon,
@@ -4792,6 +4797,7 @@ breed_functions = {
         "Chartreux" : Breed_checker.Chartreux,
         "Korat" : Breed_checker.Chartreux,
         "Chausie" : Breed_checker.Chausie,
+        "Clippercat" : Breed_checker.Clippercat,
         "Cornish Rex" : Breed_checker.Cornish,
         "German Rex" : Breed_checker.Cornish,
         "Devon Rex" : Breed_checker.Devon,

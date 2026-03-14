@@ -10,7 +10,6 @@
     "longhair": [],
     "mediumhair": [],
     "shorthair": [],
-    "curly-fur": [],
     "small": [],
     "big": [],
     "any": []
@@ -245,7 +244,9 @@
       "point": {
         "colourpoint": {
           "no_white": [],
-          "with_white": []
+          "low_white": [],
+          "mid_white": [],
+          "high_white": []
         },
         "sepia": {
           "no_white": [],
@@ -312,7 +313,9 @@
       "point": {
         "colourpoint": {
           "no_white": [],
-          "with_white": []
+          "low_white": [],
+          "mid_white": [],
+          "high_white": []
         },
         "sepia": {
           "no_white": [],
@@ -405,7 +408,9 @@
       "point": {
         "colourpoint": {
           "no_white": [],
-          "with_white": []
+          "low_white": [],
+          "mid_white": [],
+          "high_white": []
         },
         "sepia": {
           "no_white": [],
@@ -472,7 +477,9 @@
       "point": {
         "colourpoint": {
           "no_white": [],
-          "with_white": []
+          "low_white": [],
+          "mid_white": [],
+          "high_white": []
         },
         "sepia": {
           "no_white": [],
@@ -534,7 +541,12 @@
         }
       },
       "point": {
-        "colourpoint": [],
+        "colourpoint": {
+          "no_white": [],
+          "low_white": [],
+          "mid_white": [],
+          "high_white": []
+        },
         "sepia": {
           "no_white": [],
           "low_white": [],
@@ -593,7 +605,12 @@
         }
       },
       "point": {
-        "colourpoint": [],
+        "colourpoint": {
+          "no_white": [],
+          "low_white": [],
+          "mid_white": [],
+          "high_white": []
+        },
         "sepia": {
           "no_white": [],
           "low_white": [],
@@ -683,7 +700,12 @@
         }
       },
       "point": {
-        "colourpoint": []
+        "colourpoint": {
+          "no_white": [],
+          "low_white": [],
+          "mid_white": [],
+          "high_white": []
+        }
       }
     },
     "tortie": {
@@ -741,7 +763,12 @@
         }
       },
       "point": {
-        "colourpoint": []
+        "colourpoint": {
+          "no_white": [],
+          "low_white": [],
+          "mid_white": [],
+          "high_white": []
+        }
       }
     }
   },
@@ -796,7 +823,12 @@
         }
       },
       "point": {
-        "colourpoint": []
+        "colourpoint": {
+          "no_white": [],
+          "low_white": [],
+          "mid_white": [],
+          "high_white": []
+        }
       }
     },
     "tortie": {
@@ -849,7 +881,12 @@
         }
       },
       "point": {
-        "colourpoint": []
+        "colourpoint": {
+          "no_white": [],
+          "low_white": [],
+          "mid_white": [],
+          "high_white": []
+        }
       }
     }
   },
@@ -861,7 +898,12 @@
         "mid_white": [],
         "high_white": []
       },
-      "silver": []
+      "silver": {
+        "no_white": [],
+        "low_white": [],
+        "mid_white": [],
+        "high_white": []
+      }
     },
     "tabby": {
       "mackerel": {
@@ -871,7 +913,12 @@
           "mid_white": [],
           "high_white": []
         },
-        "silver": []
+        "silver": {
+          "no_white": [],
+          "low_white": [],
+          "mid_white": [],
+          "high_white": []
+        }
       },
       "blotched": {
         "regular": {
@@ -880,7 +927,12 @@
           "mid_white": [],
           "high_white": []
         },
-        "silver": []
+        "silver": {
+          "no_white": [],
+          "low_white": [],
+          "mid_white": [],
+          "high_white": []
+        }
       },
       "spotted": {
         "regular": {
@@ -889,7 +941,12 @@
           "mid_white": [],
           "high_white": []
         },
-        "silver": []
+        "silver": {
+          "no_white": [],
+          "low_white": [],
+          "mid_white": [],
+          "high_white": []
+        }
       },
       "ticked": {
         "regular": {
@@ -898,11 +955,21 @@
           "mid_white": [],
           "high_white": []
         },
-        "silver": []
+        "silver": {
+          "no_white": [],
+          "low_white": [],
+          "mid_white": [],
+          "high_white": []
+        }
       }
     },
     "point": {
-      "colourpoint": []
+      "colourpoint": {
+        "no_white": [],
+        "low_white": [],
+        "mid_white": [],
+        "high_white": []
+      }
     }
   },
   "cream": {
@@ -947,7 +1014,12 @@
       }
     },
     "point": {
-      "colourpoint": []
+      "colourpoint": {
+        "no_white": [],
+        "low_white": [],
+        "mid_white": [],
+        "high_white": []
+      }
     }
   },
   "white": {
